@@ -17,6 +17,12 @@ app.get('/users', function (request, response) {
   })
 })
 
+app.get('/questions', function (request, response) {
+  models.Question.findAll({ attributes: ['text', 'id']}).then(questions => {
+    response.send(questions);
+  })
+})
+
 
 app.listen(1337, function () {
   console.log('Example app listening on port 1337!')

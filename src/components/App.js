@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import getUsers from '../util/getUsers';
+import getQuestions from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
 
 class App extends Component {
@@ -18,6 +19,10 @@ class App extends Component {
     getUsers.all(users => {
       this.setState({ users });
     })
+
+    getQuestions.all(questions => {
+      this.setState({ questions });
+    })
   }
 
   findUsers() {
@@ -25,11 +30,25 @@ class App extends Component {
       return <div></div>
     } else {
       return (
-        <div>
+        <div style={styles.column}>
           <h2>Users</h2>
           { this.state.users.map(user => {
-            console.log(user)
-              return <p key={user.id}>{user.firstName} {user.lastName}</p>
+            return <p key={user.id}> {user.firstName} {user.lastName}</p>
+          })}
+        </div>
+      )
+    }
+  }
+
+  findQuestions() {
+    if (!this.state.questions.length) {
+      return <div></div>
+    } else {
+      return (
+        <div style={styles.column}>
+          <h2>Questions</h2>
+          { this.state.questions.map(question => {
+            return <p key={question.id}>{question.text}</p>
           })}
         </div>
       )
@@ -38,10 +57,21 @@ class App extends Component {
 
   render() {
     return (
-      <div style={stylePresets.centerAll}>
+      <div style={stylePresets.horizontalCenter}>
         { this.findUsers() }
+        { this.findQuestions() }
       </div>
     );
+  }
+}
+
+
+
+
+const styles = {
+  column: {
+    marginLeft: 50,
+    marginRight: 50,
   }
 }
 

@@ -1,10 +1,10 @@
 
-const baseUrl = 'http://localhost:1337/';
+const baseUrl = 'http://localhost:1337';
 
 const getQuestions = {};
 
 getQuestions.all = (callback) => {
-  fetch(baseUrl)
+  fetch(`${baseUrl}/questions`)
     .then(users => {
       return users.json();
     })
