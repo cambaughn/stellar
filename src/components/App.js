@@ -1,24 +1,45 @@
 import React, { Component } from 'react';
 
+import getUsers from '../util/getUsers';
+import stylePresets from '../util/stylePresets';
+
 class App extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      users: []
+      users: [],
+      questions: []
+    }
+  }
+
+  componentDidMount() {
+    getUsers.all(users => {
+      this.setState({ users });
+    })
+  }
+
+  findUsers() {
+    if (!this.state.users.length) {
+      return <div></div>
+    } else {
+      return (
+        <div>
+          <h2>Users</h2>
+          { this.state.users.map(user => {
+            console.log(user)
+              return <p key={user.id}>{user.firstName} {user.lastName}</p>
+          })}
+        </div>
+      )
     }
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div style={stylePresets.centerAll}>
+        { this.findUsers() }
       </div>
     );
   }
