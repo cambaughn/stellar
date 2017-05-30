@@ -12,7 +12,7 @@ app.use(function(req, res, next) {
 
 
 app.get('/users', function (request, response) {
-  models.User.findAll({ attributes: ['firstName', 'lastName', 'email', 'id']}).then(users => {
+  models.User.findAll({ attributes: ['name', 'email', 'id']}).then(users => {
     response.send(users);
   })
 })

@@ -28,13 +28,13 @@ sequelize
 // ============================ MODELS ============================
 
 const User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING
-  },
-  lastName: {
+  name: {
     type: Sequelize.STRING
   },
   email: {
+    type: Sequelize.STRING
+  },
+  password: {
     type: Sequelize.STRING
   },
 });
@@ -92,9 +92,8 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   console.log('all tables created')
 
   User.create({
-    firstName: 'George',
-    lastName: 'Washington',
-    email: 'george@gmail.com'
+    name: 'Luke Skywalker',
+    email: 'luke@gmail.com'
   }).then(() => {
     User.findOne().then(user => {
       console.log('USER ===> ', user.get('id'))
@@ -102,9 +101,8 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   })
 
   User.create({
-    firstName: 'John',
-    lastName: 'Hancock',
-    email: 'john@gmail.com'
+    name: 'Obi-Wan Kenobi',
+    email: 'obi-wan@gmail.com'
   })
 
   Question.create({
@@ -113,7 +111,7 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
     answererId: 2
   }).then(() => {
     Question.findOne({ include: [ { model: User, as: 'asker'}, { model: User, as: 'answerer'} ] }).then(question => {
-      console.log(`QUESTION ===> ${question.asker.firstName} ${question.asker.lastName} asks ${question.answerer.firstName} ${question.answerer.lastName}: ${question.text}`)
+      console.log(`QUESTION ===> ${question.asker.name} asks ${question.answerer.name}: ${question.text}`)
     })
   })
 });

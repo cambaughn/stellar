@@ -33,7 +33,7 @@ class App extends Component {
         <div style={styles.column}>
           <h2>Users</h2>
           { this.state.users.map(user => {
-            return <p key={user.id}> {user.firstName} {user.lastName}</p>
+            return <p key={user.id}> {user.name} </p>
           })}
         </div>
       )
