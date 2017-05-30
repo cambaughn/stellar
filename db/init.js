@@ -43,41 +43,45 @@ const Question = sequelize.define('question', {
   text: {
     type: Sequelize.STRING,
   },
-  asker: {
-    type: Sequelize.INTEGER,
-
-    references: {
-      model: User,
-      key: 'id',
-    }
-  },
-  answerer: {
-    type: Sequelize.INTEGER,
-
-    references: {
-      model: User,
-      key: 'id',
-    }
-  },
+  // asker: {
+  //   type: Sequelize.INTEGER,
+  //
+  //   references: {
+  //     model: User,
+  //     // This is the column name of the referenced model
+  //     key: 'id',
+  //   }
+  // },
+  // answerer: {
+  //   type: Sequelize.INTEGER,
+  //
+  //   references: {
+  //     model: User,
+  //     key: 'id',
+  //   }
+  // },
 });
+
+Question.belongsTo(User, { as: 'asker'});
+Question.belongsTo(User, { as: 'answerer'});
 
 
 const Answer = sequelize.define('answer', {
   video_path: {
     type: Sequelize.STRING,
   },
-  response_to: {
-    type: Sequelize.INTEGER,
-    references: {
-      // This is a reference to another model
-      model: Question,
-      // This is the column name of the referenced model
-      key: 'id',
-    }
-  },
+  // response_to: {
+  //   type: Sequelize.INTEGER,
+  //   references: {
+  //     // This is a reference to another model
+  //     model: Question,
+  //     // This is the column name of the referenced model
+  //     key: 'id',
+  //   }
+  // },
 });
 
-
+Answer.belongsTo(Question);
 
 // ============================ Setup + Test ============================
 
@@ -105,14 +109,14 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
 
   Question.create({
     text: 'Hey, what\'s your favorite color?',
-    asker: 1,
-    answerer: 2
+    askerId: 1,
+    answererId: 2
   }).then(() => {
-    Question.findOne().then(question => {
-      User.findOne({ where: { id: question.asker }}).then(asker => {
-        console.log(`QUESTION ===> ${asker.firstName} ${asker.lastName} asks: ${question.text}`)
-      })
-    })
+    // Question.findOne().then(question => {
+    //   User.findOne({ where: { id: question.asker }}).then(asker => {
+    //     console.log(`QUESTION ===> ${asker.firstName} ${asker.lastName} asks: ${question.text}`)
+    //   })
+    // })
   })
 });
 
