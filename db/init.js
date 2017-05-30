@@ -112,11 +112,9 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
     askerId: 1,
     answererId: 2
   }).then(() => {
-    // Question.findOne().then(question => {
-    //   User.findOne({ where: { id: question.asker }}).then(asker => {
-    //     console.log(`QUESTION ===> ${asker.firstName} ${asker.lastName} asks: ${question.text}`)
-    //   })
-    // })
+    Question.findOne({ include: [ { model: User, as: 'asker'}, { model: User, as: 'answerer'} ] }).then(question => {
+      console.log(`QUESTION ===> ${question.asker.firstName} ${question.asker.lastName} asks ${question.answerer.firstName} ${question.answerer.lastName}: ${question.text}`)
+    })
   })
 });
 
