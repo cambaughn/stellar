@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 
 const models = require('../db/init.js');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json()); // for parsing application/json
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -18,9 +21,22 @@ app.get('/users', function (request, response) {
 })
 
 app.get('/questions', function (request, response) {
-  models.Question.findAll({ attributes: ['text', 'id']}).then(questions => {
-    response.send(questions);
+  models.Question.findAll({
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'} ],
+    attributes: ['text', 'id']
   })
+    .then(questions => {
+      response.send(questions);
+    })
+})
+
+app.post('/login', (request, response) => {
+  console.log(request.body)
+  response.json(request.body);
+})
+
+app.post('/login', (request, response) => {
+  models.User.findOrCreate({ where: {} })
 })
 
 

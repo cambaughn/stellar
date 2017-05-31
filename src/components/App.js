@@ -48,7 +48,12 @@ class App extends Component {
         <div style={styles.column}>
           <h2>Questions</h2>
           { this.state.questions.map(question => {
-            return <p key={question.id}>{question.text}</p>
+            return (
+              <div key={question.id}>
+                <p style={styles.asking}>{question.asker.name} asks {question.answerer.name}:</p>
+                <p>{question.text}</p>
+              </div>
+            )
           })}
         </div>
       )
@@ -72,6 +77,10 @@ const styles = {
   column: {
     marginLeft: 50,
     marginRight: 50,
+  },
+  asking: {
+    fontSize: '80%',
+    color: 'grey'
   }
 }
 
