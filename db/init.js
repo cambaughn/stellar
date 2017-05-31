@@ -91,19 +91,11 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   // Table created
   console.log('all tables created')
 
-  User.create({
-    name: 'Luke Skywalker',
-    email: 'luke@gmail.com'
-  }).then(() => {
-    User.findOne().then(user => {
-      console.log('USER ===> ', user.get('id'))
-    })
-  })
+  User.create({ name: 'Luke Skywalker', email: 'luke@gmail.com' })
 
-  User.create({
-    name: 'Obi-Wan Kenobi',
-    email: 'obi-wan@gmail.com'
-  })
+  User.create({ name: 'Obi-Wan Kenobi', email: 'obi-wan@gmail.com' })
+
+  User.create({ name: "Anakin Skywalker", email: "anakin@gmail.com", password: "$2a$10$/STx6KrERzjZb3wAaI0yqujRmtURSo2QMoRYW8k0VFoIen1xm7R2G" })
 
   Question.create({
     text: 'Hey, what\'s your favorite color?',
