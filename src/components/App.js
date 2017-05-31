@@ -1,5 +1,13 @@
+/*eslint no-use-before-define: "off"*/
+/*eslint no-unused-vars: "off"*/
+/*eslint-env es6*/
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
+// Components
+import NavBar from './NavBar';
+
+// Utility functions & styles
 import getUsers from '../util/getUsers';
 import getQuestions from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
@@ -62,10 +70,15 @@ class App extends Component {
 
   render() {
     return (
-      <div style={stylePresets.horizontalCenter}>
-        { this.findUsers() }
-        { this.findQuestions() }
-      </div>
+      <Router>
+        <div>
+          <NavBar />
+          <div style={stylePresets.horizontalCenter}>
+            { this.findUsers() }
+            { this.findQuestions() }
+          </div>
+        </div>
+      </Router>
     );
   }
 }

@@ -15,6 +15,7 @@
     "mysql2": "^1.2.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "sequelize": "^3.30.4"
   },
@@ -23,5 +24,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "rules": {
+      "no-use-before-define": 0
+    }
   }
 }
