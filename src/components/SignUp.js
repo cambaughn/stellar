@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import stylePresets from '../util/stylePresets';
+import { signUp } from '../util/signInHelpers';
 
 
 class SignUp extends Component {
@@ -20,10 +21,11 @@ class SignUp extends Component {
     }
   }
 
-  signUp() {
-    
+  handleSubmit(event) {
+    console.log('youooouu')
+    event.preventDefault();
+    signUp({ name: this.state.name, email: this.state.email, password: this.state.email }, console.log)
   }
-
 
   render() {
     return (
@@ -39,7 +41,10 @@ class SignUp extends Component {
             onChange={e => { this.setState({ 'password': e.target.value }) }} />
 
           <input type="password" placeholder="Confirm Password" style={stylePresets.textInput} />
-          <button type="submit" style={stylePresets.buttonPrimary}>Sign Up</button>
+          <button type="submit" style={stylePresets.buttonPrimary}
+            onSubmit={this.handleSubmit.bind(this)}>
+            Sign Up
+          </button>
         </form>
       </div>
     )

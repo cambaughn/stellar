@@ -65,6 +65,8 @@ app.post('/login', (request, response) => {
 app.post('/signup', (request, response) => {
   let { name, email, password } = request.body;
 
+  console.log('incoming! =>>>> ', name, email, password);
+
   bcrypt.hash(request.body.password, 10, function(error, hash) {
 
     if (error) {
