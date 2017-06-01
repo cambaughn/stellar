@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 // Components
 import NavBar from './NavBar';
+import SignUp from './SignUp';
+import LogIn from './LogIn';
 
 // Utility functions & styles
 import getUsers from '../util/getUsers';
@@ -19,7 +21,8 @@ class App extends Component {
 
     this.state = {
       users: [],
-      questions: []
+      questions: [],
+      currentUser: {},
     }
   }
 
@@ -73,6 +76,8 @@ class App extends Component {
       <Router>
         <div>
           <NavBar />
+          <Route path='/signup' component={SignUp} />
+          <Route path='/login' component={LogIn} />
           <div style={stylePresets.horizontalCenter}>
             { this.findUsers() }
             { this.findQuestions() }

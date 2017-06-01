@@ -37,29 +37,17 @@ const User = sequelize.define('user', {
   password: {
     type: Sequelize.STRING
   },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  }
 });
 
 const Question = sequelize.define('question', {
   text: {
     type: Sequelize.STRING,
   },
-  // asker: {
-  //   type: Sequelize.INTEGER,
-  //
-  //   references: {
-  //     model: User,
-  //     // This is the column name of the referenced model
-  //     key: 'id',
-  //   }
-  // },
-  // answerer: {
-  //   type: Sequelize.INTEGER,
-  //
-  //   references: {
-  //     model: User,
-  //     key: 'id',
-  //   }
-  // },
 });
 
 Question.belongsTo(User, { as: 'asker'});
@@ -70,15 +58,6 @@ const Answer = sequelize.define('answer', {
   video_path: {
     type: Sequelize.STRING,
   },
-  // response_to: {
-  //   type: Sequelize.INTEGER,
-  //   references: {
-  //     // This is a reference to another model
-  //     model: Question,
-  //     // This is the column name of the referenced model
-  //     key: 'id',
-  //   }
-  // },
 });
 
 Answer.belongsTo(Question);
