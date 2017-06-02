@@ -44,6 +44,13 @@ const User = sequelize.define('user', {
   }
 });
 
+const Follower = sequelize.define('follower', {
+});
+
+Follower.belongsTo(User, { as: 'follower'});
+Follower.belongsTo(User, { as: 'following'});
+
+
 const Question = sequelize.define('question', {
   text: {
     type: Sequelize.STRING,
@@ -87,16 +94,10 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   })
 });
 
-const models = [User, Question, Answer];
-
-// for (let i = 0; i < models.length; i++) {
-//   let model = models[i];
-//   console.log('Model!', model)
-//   module.exports[model] = model;
-// }
 
 
 module.exports.sequelize = sequelize;
 module.exports.User = User;
 module.exports.Question = Question;
 module.exports.Answer = Answer;
+module.exports.Follower = Follower;

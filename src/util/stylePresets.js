@@ -26,8 +26,8 @@ const stylePresets = {
     flexDirection: 'column',
 
     padding: 20,
-    border: '1px solid pink',
     width: 300,
+    // border: '1px solid pink',
   },
 
   textInput: {

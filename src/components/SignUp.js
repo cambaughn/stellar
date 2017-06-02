@@ -17,14 +17,16 @@ class SignUp extends Component {
       name: '',
       email: '',
       password: '',
-      confirmPass: '',
+      // confirmPass: '',
     }
   }
 
   handleSubmit(event) {
     event.preventDefault();
     event.stopPropagation();
-    signInHelpers.signUp({ name: this.state.name, email: this.state.email, password: this.state.email }, console.log)
+    if (this.state.name && this.state.email && this.state.password) {
+      signInHelpers.signUp(this.state, console.log)
+    }
   }
 
   render() {
@@ -32,15 +34,15 @@ class SignUp extends Component {
       <div>
         <form style={stylePresets.form} onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" placeholder="Full Name" style={stylePresets.textInput}
-            onChange={e => { this.setState({ 'name': e.target.value }) }} />
+            onChange={e => { this.setState({ 'name': e.target.value }) }} required />
 
           <input type="email" placeholder="Email Address" style={stylePresets.textInput}
-            onChange={e => { this.setState({ 'email': e.target.value }) }} />
+            onChange={e => { this.setState({ 'email': e.target.value }) }} required />
 
           <input type="password" placeholder="Password" style={stylePresets.textInput}
-            onChange={e => { this.setState({ 'password': e.target.value }) }} />
+            onChange={e => { this.setState({ 'password': e.target.value }) }} required />
 
-          <input type="password" placeholder="Confirm Password" style={stylePresets.textInput} />
+          {/* <input type="password" placeholder="Confirm Password" style={stylePresets.textInput} /> */}
           <button type="submit" style={stylePresets.buttonPrimary}>
             Sign Up
           </button>

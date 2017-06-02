@@ -73,7 +73,7 @@ app.post('/signup', (request, response) => {
       console.error(error);
     } else {
 
-      models.User.findOrCreate({ where: { name: name}, defaults: { email: email, password: hash}})
+      models.User.findOrCreate({ where: { email: email }, defaults: { name: name, password: hash}})
         .spread((user, created) => {
           response.statusCode = 201;
           response.send(user);
@@ -85,9 +85,6 @@ app.post('/signup', (request, response) => {
         })
     }
   });
-
-  // response.json(request.body);
-  // models.User.findOrCreate({ where: {} })
 })
 
 

@@ -4,8 +4,7 @@ const baseUrl = 'http://localhost:1337'
 const signInHelpers = {}
 
 signInHelpers.signUp = (user, callback) => {
-
-  console.log('working')
+  console.log(user)
 
   let headers = new Headers({
       'Content-Type': 'application/json',
@@ -22,7 +21,6 @@ signInHelpers.signUp = (user, callback) => {
       return user.json();
     })
     .then(user => {
-      console.log('hey we got a user!')
       callback(user);
     })
     .catch(error => {
