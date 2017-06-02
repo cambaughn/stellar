@@ -10,7 +10,7 @@ import stylePresets from '../util/stylePresets';
 
 const LogIn = () => {
   return (
-    <div>
+    <div style={stylePresets.horizontalCenter}>
       <form style={stylePresets.form}>
         <input type="email" placeholder="Email Address" style={stylePresets.textInput} />
         <input type="password" placeholder="Password" style={stylePresets.textInput} />

@@ -66,8 +66,6 @@ app.post('/login', (request, response) => {
 app.post('/signup', (request, response) => {
   let { name, email, password } = request.body;
 
-  console.log('incoming! =>>>> ', name, email, password);
-
   bcrypt.hash(request.body.password, 10, function(error, hash) {
 
     if (error) {
@@ -77,7 +75,7 @@ app.post('/signup', (request, response) => {
       models.User.findOrCreate({ where: { email: email }, defaults: { name: name, password: hash}})
         .spread((user, created) => {
           response.statusCode = 201;
-          response.send(user);
+          response.send({ id: user.id, name: user.name, email: user.email });
         })
         .catch(error => {
           console.error(error);

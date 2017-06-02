@@ -37,7 +37,9 @@ class App extends Component {
     })
   }
 
-
+  updateCurrentUser(user) {
+    this.setState({ currentUser: user })
+  }
 
   render() {
     return (
@@ -46,7 +48,7 @@ class App extends Component {
           <NavBar />
           <Route exact path='/' render={() => (
             <Main users={this.state.users} questions={this.state.questions} currentUser={this.state.currentUser} /> )} />
-          <Route path='/signup' component={SignUp} />
+          <Route path='/signup' render={ () => ( <SignUp updateCurrentUser={this.updateCurrentUser.bind(this)} /> )} />
           <Route path='/login' component={LogIn} />
         </div>
       </Router>
