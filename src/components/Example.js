@@ -9,3 +9,24 @@ const Example = () => {
 }
 
 export default Example;
+
+
+// OR
+
+class Example extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      example: ''
+    }
+  }
+
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}

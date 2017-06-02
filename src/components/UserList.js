@@ -4,13 +4,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import colors from '../util/colors';
+
 
 const UserList = ({ users }) => {
   return (
     <div style={styles.column}>
       <h2>Users</h2>
       { users.map(user => {
-        return <p key={user.id}> {user.name} </p>
+        return (
+          <Link to={`/user/${user.id}`} style={styles.link}>
+            <p key={user.id}> {user.name} </p>
+          </Link>
+        )
       })}
     </div>
   )
@@ -24,6 +30,10 @@ const styles = {
   asking: {
     fontSize: '80%',
     color: 'grey'
+  },
+  link: {
+    textDecoration: 'none',
+    color: colors.black,
   }
 }
 

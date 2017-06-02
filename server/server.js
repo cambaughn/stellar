@@ -25,6 +25,18 @@ app.get('/users', function (request, response) {
   })
 })
 
+app.get('/user/:id', (request, response) => {
+  console.log('---- GETTING USER ----', request.params.id)
+  // Return the specific user
+  models.User.findOne({ where: { id: request.params.id }, attributes: ['name', 'email', 'bio', 'id']})
+    .then(user => {
+      response.send(user);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+})
+
 
 // QUESTION routes
 app.get('/questions', function (request, response) {

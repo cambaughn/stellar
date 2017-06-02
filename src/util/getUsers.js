@@ -16,5 +16,19 @@ getUsers.all = (callback) => {
     })
 }
 
+getUsers.findUser = (userId, callback) => {
+  console.log('finding user => ', userId)
+  fetch(`${baseUrl}/user/${userId}`)
+    .then(user => {
+      return user.json();
+    })
+    .then(user => {
+      callback(user);
+    })
+    .catch(error => {
+      console.log(`ERROR => ${error}`);
+    })
+}
+
 
 export default getUsers;
