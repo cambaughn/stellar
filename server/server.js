@@ -3,11 +3,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+var cookieParser = require('cookie-parser');
 
 const models = require('../db/init.js');
 
 app.use(bodyParser.json()); // for parsing application/json
-
+app.use(cookieParser()); // for parsing cookies
 
 // CORS
 app.use(function(req, res, next) {

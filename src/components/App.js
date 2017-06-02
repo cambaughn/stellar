@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
+import Main from './Main';
 
 // Utility functions & styles
 import getUsers from '../util/getUsers';
@@ -36,52 +37,17 @@ class App extends Component {
     })
   }
 
-  findUsers() {
-    if (!this.state.users.length) {
-      return <div></div>
-    } else {
-      return (
-        <div style={styles.column}>
-          <h2>Users</h2>
-          { this.state.users.map(user => {
-            return <p key={user.id}> {user.name} </p>
-          })}
-        </div>
-      )
-    }
-  }
 
-  findQuestions() {
-    if (!this.state.questions.length) {
-      return <div></div>
-    } else {
-      return (
-        <div style={styles.column}>
-          <h2>Questions</h2>
-          { this.state.questions.map(question => {
-            return (
-              <div key={question.id}>
-                <p style={styles.asking}>{question.asker.name} asks {question.answerer.name}:</p>
-                <p>{question.text}</p>
-              </div>
-            )
-          })}
-        </div>
-      )
-    }
-  }
 
   render() {
     return (
       <Router>
         <div>
           <NavBar />
+          <Route exact path='/' render={() => (
+            <Main users={this.state.users} questions={this.state.questions} currentUser={this.state.currentUser} /> )} />
           <Route path='/signup' component={SignUp} />
           <Route path='/login' component={LogIn} />
-          <div style={stylePresets.horizontalCenter}>
-            { this.findUsers() }
-            { this.findQuestions() }
-          </div>
         </div>
       </Router>
     );
