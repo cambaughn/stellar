@@ -37,6 +37,9 @@ const User = sequelize.define('user', {
   password: {
     type: Sequelize.STRING
   },
+  bio: {
+    type: Sequelize.STRING
+  },
   admin: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
@@ -77,11 +80,11 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   // Table created
   console.log('all tables created')
 
-  User.create({ name: 'Luke Skywalker', email: 'luke@gmail.com' })
+  User.create({ name: 'Luke Skywalker', email: 'luke@gmail.com', bio: 'I am a Jedi, like my father before me' })
 
-  User.create({ name: 'Obi-Wan Kenobi', email: 'obi-wan@gmail.com' })
+  User.create({ name: 'Obi-Wan Kenobi', email: 'obi-wan@gmail.com', bio: 'You must do what you feel is right, of course.' })
 
-  User.create({ name: "Anakin Skywalker", email: "anakin@gmail.com", password: "$2a$10$/STx6KrERzjZb3wAaI0yqujRmtURSo2QMoRYW8k0VFoIen1xm7R2G" })
+  User.create({ name: "Anakin Skywalker", email: "anakin@gmail.com", password: "$2a$10$/STx6KrERzjZb3wAaI0yqujRmtURSo2QMoRYW8k0VFoIen1xm7R2G", bio: 'I am the chosen one.' })
 
   Question.create({
     text: 'Hey, what\'s your favorite color?',

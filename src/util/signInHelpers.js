@@ -1,10 +1,9 @@
 
 const baseUrl = 'http://localhost:1337'
 
-const signInHelpers = {}
+const signInHelpers = {};
 
 signInHelpers.signUp = (user, callback) => {
-  console.log(user)
 
   let headers = new Headers({
       'Content-Type': 'application/json',
