@@ -51,7 +51,9 @@ class App extends Component {
             <Main users={this.state.users} questions={this.state.questions} currentUser={this.state.currentUser} /> )} />
           <Route path='/signup' render={ () => ( <SignUp updateCurrentUser={this.updateCurrentUser.bind(this)} /> )} />
           <Route path='/login' component={LogIn} />
-          <Route path='/user/:userId' component={UserProfile} />
+
+          {/* NOTE: Find out how to get path from URL that we're on */}
+          <Route path='/user/:userId' render={ () => ( <UserProfile userId={1} />)} />
         </div>
       </Router>
     );

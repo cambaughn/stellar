@@ -19,7 +19,7 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-    getUsers.findUser(1, this.setUser.bind(this))
+    getUsers.findUser(this.props.userId, this.setUser.bind(this))
   }
 
   setUser(user) {
