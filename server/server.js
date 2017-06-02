@@ -37,6 +37,21 @@ app.get('/questions', function (request, response) {
     })
 })
 
+
+app.post('/questions/new', (request, response) => {
+  let { text, askerId, answererId } = request.body;
+
+  if (text && askerId && answererId) {
+    models.Question.findOrCreate({ where: {text, askerId, answererId}})
+      .spread((question, created) => {
+        response.send(question);
+      })
+  } else {
+    response.send('Error! Missing fields. Please try again.')
+  }
+
+})
+
 // LOGIN & SIGNUP routes
 app.post('/login', (request, response) => {
   let { name, email, password } = request.body;
