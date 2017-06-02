@@ -25,10 +25,9 @@ app.get('/users', function (request, response) {
   })
 })
 
-app.get('/user/:id', (request, response) => {
-  console.log('---- GETTING USER ----', request.params.id)
+app.get('/user/:userId', (request, response) => {
   // Return the specific user
-  models.User.findOne({ where: { id: request.params.id }, attributes: ['name', 'email', 'bio', 'id']})
+  models.User.findOne({ where: { id: request.params.userId }, attributes: ['name', 'email', 'bio', 'id']})
     .then(user => {
       response.send(user);
     })
@@ -42,6 +41,18 @@ app.get('/user/:id', (request, response) => {
 app.get('/questions', function (request, response) {
   models.Question.findAll({
     include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'} ],
+    attributes: ['text', 'id']
+  })
+    .then(questions => {
+      response.send(questions);
+    })
+})
+
+app.get('/questions/:userId', (request, response) => {
+  console.log(request.params.userId)
+  models.Question.findAll({
+    where: { answererId: request.params.userId},
+    include: [ { model: models.User, as: 'asker'} ],
     attributes: ['text', 'id']
   })
     .then(questions => {

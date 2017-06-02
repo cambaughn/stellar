@@ -16,5 +16,18 @@ getQuestions.all = (callback) => {
     })
 }
 
+getQuestions.forUser = (userId, callback) => {
+  fetch(`${baseUrl}/questions/${userId}`)
+    .then(questions => {
+      return questions.json();
+    })
+    .then(questions => {
+      callback(questions);
+    })
+    .catch(error => {
+      console.log(`ERROR => ${error}`);
+    })
+}
+
 
 export default getQuestions;

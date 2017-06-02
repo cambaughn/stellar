@@ -17,7 +17,6 @@ getUsers.all = (callback) => {
 }
 
 getUsers.findUser = (userId, callback) => {
-  console.log('finding user => ', userId)
   fetch(`${baseUrl}/user/${userId}`)
     .then(user => {
       return user.json();

@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import getUsers from '../util/getUsers';
+import getQuestions from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
 
 class UserProfile extends Component {
@@ -22,23 +23,64 @@ class UserProfile extends Component {
   }
 
   setUser(user) {
-    this.setState({ user });
+    this.setState({ user }, () => {
+      getQuestions.forUser(this.state.user.id, this.setQuestions.bind(this));
+    });
+  }
+
+  setQuestions(questions) {
+    this.setState({ questions });
   }
 
   render() {
     let { name, bio } = this.state.user;
 
     return (
-      <div style={stylePresets.horizontalCenter}>
-        <h2>{name}</h2>
-        <h4>{bio}</h4>
-        <div>
-          {this.state.questions}
-        </div>
+      <div style={styles.container}>
+        <div style={styles.column}>
 
+          <div style={styles.topInfo}>
+            <h2>{name}</h2>
+            <p>{bio}</p>
+          </div>
+
+          <div>
+            { this.state.questions.map(question => {
+              return (
+                <div key={question.id}>
+                  <p style={styles.asking}>{question.asker.name} asks:</p>
+                  <p>{question.text}</p>
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
       </div>
     )
   }
 }
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  topInfo: {
+    marginBottom: 30,
+  },
+
+  column: {
+    width: 400,
+  },
+
+  asking: {
+    fontSize: '80%',
+    color: 'grey'
+  }
+}
+
 
 export default UserProfile;

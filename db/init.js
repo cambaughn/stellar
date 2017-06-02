@@ -88,8 +88,8 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
 
   Question.create({
     text: 'Hey, what\'s your favorite color?',
-    askerId: 1,
-    answererId: 2
+    askerId: 2,
+    answererId: 1
   }).then(() => {
     Question.findOne({ include: [ { model: User, as: 'asker'}, { model: User, as: 'answerer'} ] }).then(question => {
       console.log(`QUESTION ===> ${question.asker.name} asks ${question.answerer.name}: ${question.text}`)

@@ -13,8 +13,8 @@ const UserList = ({ users }) => {
       <h2>Users</h2>
       { users.map(user => {
         return (
-          <Link to={`/user/${user.id}`} style={styles.link}>
-            <p key={user.id}> {user.name} </p>
+          <Link to={`/user/${user.id}`} style={styles.link} key={user.id}>
+            <p> {user.name} </p>
           </Link>
         )
       })}
