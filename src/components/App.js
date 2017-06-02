@@ -53,7 +53,7 @@ class App extends Component {
           <Route path='/login' component={LogIn} />
 
           {/* NOTE: Find out how to get path from URL that we're on */}
-          <Route path='/user/:userId' render={ () => ( <UserProfile userId={1} />)} />
+          <Route path='/user/:userId' component={UserProfile} />
         </div>
       </Router>
     );

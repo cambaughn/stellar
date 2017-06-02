@@ -84,7 +84,7 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
 
   User.create({ name: 'Obi-Wan Kenobi', email: 'obi-wan@gmail.com', bio: 'You must do what you feel is right, of course.' })
 
-  User.create({ name: "Anakin Skywalker", email: "anakin@gmail.com", password: "$2a$10$/STx6KrERzjZb3wAaI0yqujRmtURSo2QMoRYW8k0VFoIen1xm7R2G", bio: 'I am the chosen one.' })
+  User.create({ name: "Anakin Skywalker", email: "anakin@gmail.com", password: "$2a$10$/STx6KrERzjZb3wAaI0yqujRmtURSo2QMoRYW8k0VFoIen1xm7R2G", bio: 'This is where the fun begins.' })
 
   Question.create({
     text: 'Hey, what\'s your favorite color?',
