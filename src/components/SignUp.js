@@ -25,14 +25,19 @@ class SignUp extends Component {
     event.preventDefault();
     event.stopPropagation();
     if (this.state.name && this.state.email && this.state.password) {
-      signInHelpers.signUp(this.state, this.props.updateCurrentUser)
+      signInHelpers.signUp(this.state, this.props.updateCurrentUser);
     }
+  }
+
+  handleLoggedIn() {
+    this.setState({ name: '', email: '', password: ''});
   }
 
   render() {
     return (
       <div style={stylePresets.horizontalCenter}>
         <form style={stylePresets.form} onSubmit={this.handleSubmit.bind(this)}>
+          <h1>Sign Up</h1>
           <input type="text" placeholder="Full Name" style={stylePresets.textInput}
             onChange={e => { this.setState({ 'name': e.target.value }) }} required />
 

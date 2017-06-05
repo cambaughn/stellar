@@ -1,8 +1,10 @@
+
 const baseUrl = 'http://localhost:1337';
 
-const postQuestions = {};
+const postQuestion = {};
 
-postQuestions.newQuestion = (question, callback) => {
+
+postQuestion.new = (question, callback) => {
 
   let headers = new Headers({
       'Content-Type': 'application/json',
@@ -26,6 +28,5 @@ postQuestions.newQuestion = (question, callback) => {
     })
 }
 
-// NOTE: Add form to post new questions - need to set up user profile first
 
-// postQuestions.newQuestion({ text: 'what up bro', askerId: 1, answererId: 2 }, console.log)
+export default postQuestion;

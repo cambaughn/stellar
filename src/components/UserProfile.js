@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import QuestionForm from './QuestionForm';
+
 import getUsers from '../util/getUsers';
 import getQuestions from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
@@ -24,8 +26,12 @@ class UserProfile extends Component {
 
   setUser(user) {
     this.setState({ user }, () => {
-      getQuestions.forUser(this.state.user.id, this.setQuestions.bind(this));
+      this.findQuestions();
     });
+  }
+
+  findQuestions() {
+    getQuestions.forUser(this.state.user.id, this.setQuestions.bind(this));
   }
 
   setQuestions(questions) {
@@ -42,6 +48,8 @@ class UserProfile extends Component {
           <div style={styles.topInfo}>
             <h2>{name}</h2>
             <p>{bio}</p>
+            <QuestionForm findQuestions={this.findQuestions.bind(this)}
+              askerId={this.props.currentUserId} answererId={ this.state.user.id } />
           </div>
 
           <div>

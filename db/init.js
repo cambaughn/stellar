@@ -78,7 +78,7 @@ Answer.belongsTo(Question);
 // the match regex will only do so if the db contains _test, will not do so in production
 sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   // Table created
-  console.log('all tables created')
+  console.log('All tables created')
 
   User.create({ name: 'Luke Skywalker', email: 'luke@gmail.com', bio: 'I am a Jedi, like my father before me' })
 
@@ -90,10 +90,6 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
     text: 'Hey, what\'s your favorite color?',
     askerId: 2,
     answererId: 1
-  }).then(() => {
-    Question.findOne({ include: [ { model: User, as: 'asker'}, { model: User, as: 'answerer'} ] }).then(question => {
-      console.log(`QUESTION ===> ${question.asker.name} asks ${question.answerer.name}: ${question.text}`)
-    })
   })
 });
 

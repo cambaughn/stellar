@@ -24,7 +24,7 @@ class App extends Component {
     this.state = {
       users: [],
       questions: [],
-      currentUser: {},
+      currentUser: {id: 3},
     }
   }
 
@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   updateCurrentUser(user) {
-    this.setState({ currentUser: user })
+    this.setState({ currentUser: user });
   }
 
   render() {
@@ -53,7 +53,7 @@ class App extends Component {
           <Route path='/login' component={LogIn} />
 
           {/* NOTE: Find out how to get path from URL that we're on */}
-          <Route path='/user/:userId' component={UserProfile} />
+          <Route path='/user/:userId' render={({ match }) => (<UserProfile match={match} currentUserId={this.state.currentUser.id}/>)} />
         </div>
       </Router>
     );
