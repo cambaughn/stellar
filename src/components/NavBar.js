@@ -8,7 +8,35 @@ import { Link } from 'react-router-dom';
 import colors from '../util/colors.js';
 
 
-const NavBar = () => {
+
+
+const NavBar = ({ signedIn, updateCurrentUser }) => {
+  console.log('Are we signed in? => ', signedIn)
+
+  const renderLinks = () => {
+    if (!signedIn) {
+      return (
+        <div style={styles.navLinks}>
+          <Link to='/signup' style={styles.link}>
+            <p>Sign Up</p>
+          </Link>
+
+          <Link to='/login' style={styles.link}>
+            <p>Log In</p>
+          </Link>
+        </div>
+      )
+    } else {
+      return (
+        <div style={styles.navLinks}>
+          <div style={styles.link} onClick={() => { updateCurrentUser({}) }}>
+            <p>Log Out</p>
+          </div>
+        </div>
+      )
+    }
+  }
+
   return (
     <div style={styles.bar}>
       <div>
@@ -17,15 +45,7 @@ const NavBar = () => {
         </Link>
       </div>
 
-      <div style={styles.navLinks}>
-        <Link to='/signup' style={styles.link}>
-          <p>Sign Up</p>
-        </Link>
-
-        <Link to='/login' style={styles.link}>
-          <p>Log In</p>
-        </Link>
-      </div>
+      { renderLinks() }
     </div>
   )
 }
@@ -60,10 +80,9 @@ const styles = {
   link: {
     color: colors.black,
     textDecoration: 'none',
-
     fontSize: '90%',
-
     marginLeft: 40,
+    cursor: 'pointer',
   }
 }
 

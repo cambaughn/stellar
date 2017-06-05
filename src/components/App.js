@@ -24,11 +24,15 @@ class App extends Component {
     this.state = {
       users: [],
       questions: [],
-      currentUser: {id: 3},
+      currentUser: { id: 3 },
     }
   }
 
   componentDidMount() {
+    this.getUsersAndQuestions();
+  }
+
+  getUsersAndQuestions() {
     getUsers.all(users => {
       this.setState({ users });
     })
@@ -46,13 +50,12 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <NavBar />
+          <NavBar signedIn={!!this.state.currentUser.id}
+            updateCurrentUser={this.updateCurrentUser.bind(this)} />
           <Route exact path='/' render={() => (
             <Main users={this.state.users} questions={this.state.questions} currentUser={this.state.currentUser} /> )} />
           <Route path='/signup' render={ () => ( <SignUp updateCurrentUser={this.updateCurrentUser.bind(this)} /> )} />
           <Route path='/login' component={LogIn} />
-
-          {/* NOTE: Find out how to get path from URL that we're on */}
           <Route path='/user/:userId' render={({ match }) => (<UserProfile match={match} currentUserId={this.state.currentUser.id}/>)} />
         </div>
       </Router>

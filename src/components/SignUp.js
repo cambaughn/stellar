@@ -25,12 +25,13 @@ class SignUp extends Component {
     event.preventDefault();
     event.stopPropagation();
     if (this.state.name && this.state.email && this.state.password) {
-      signInHelpers.signUp(this.state, this.props.updateCurrentUser);
+      signInHelpers.signUp(this.state, this.handleLoggedIn.bind(this));
     }
   }
 
-  handleLoggedIn() {
+  handleLoggedIn(user) {
     this.setState({ name: '', email: '', password: ''});
+    this.props.updateCurrentUser(user);
   }
 
   render() {
@@ -38,13 +39,16 @@ class SignUp extends Component {
       <div style={stylePresets.horizontalCenter}>
         <form style={stylePresets.form} onSubmit={this.handleSubmit.bind(this)}>
           <h1>Sign Up</h1>
-          <input type="text" placeholder="Full Name" style={stylePresets.textInput}
+          <input type="text" placeholder="Full Name"
+            value={this.state.name} style={stylePresets.textInput}
             onChange={e => { this.setState({ 'name': e.target.value }) }} required />
 
-          <input type="email" placeholder="Email Address" style={stylePresets.textInput}
+          <input type="email" placeholder="Email Address"
+            value={this.state.email} style={stylePresets.textInput}
             onChange={e => { this.setState({ 'email': e.target.value }) }} required />
 
-          <input type="password" placeholder="Password" style={stylePresets.textInput}
+          <input type="password" placeholder="Password"
+            value={this.state.password} style={stylePresets.textInput}
             onChange={e => { this.setState({ 'password': e.target.value }) }} required />
 
           {/* <input type="password" placeholder="Confirm Password" style={stylePresets.textInput} /> */}
