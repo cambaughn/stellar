@@ -10,11 +10,10 @@ import colors from '../util/colors.js';
 
 
 
-const NavBar = ({ signedIn, updateCurrentUser }) => {
-  console.log('Are we signed in? => ', signedIn)
+const NavBar = ({ isSignedIn, updateCurrentUser }) => {
 
   const renderLinks = () => {
-    if (!signedIn) {
+    if (!isSignedIn) {
       return (
         <div style={styles.navLinks}>
           <Link to='/signup' style={styles.link}>

@@ -3,7 +3,7 @@
 /*eslint-env es6*/
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import stylePresets from '../util/stylePresets';
 import signInHelpers from '../util/signInHelpers';
@@ -34,9 +34,19 @@ class SignUp extends Component {
     this.props.updateCurrentUser(user);
   }
 
+  handleRedirect() {
+    if (this.props.isSignedIn) {
+      return (
+        <Redirect to='/' />
+      )
+    }
+  }
+
   render() {
+
     return (
       <div style={stylePresets.horizontalCenter}>
+        { this.handleRedirect() }
         <form style={stylePresets.form} onSubmit={this.handleSubmit.bind(this)}>
           <h1>Sign Up</h1>
           <input type="text" placeholder="Full Name"
