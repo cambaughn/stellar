@@ -1,6 +1,8 @@
 
 const baseUrl = 'http://localhost:1337';
 
+console.log('BASE URL => ', process.env)
+
 
 const getUsers = {};
 
