@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 /*eslint-env es6*/
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 // Components
 import NavBar from './NavBar';
@@ -51,14 +51,18 @@ class App extends Component {
       <Router>
         <div>
           <NavBar isSignedIn={!!this.state.currentUser.id}
-            updateCurrentUser={this.updateCurrentUser.bind(this)} />
+            updateCurrentUser={this.updateCurrentUser.bind(this)}
+            currentUser={this.state.currentUser} />
+
           <Route exact path='/' render={() => (
             <Main users={this.state.users} questions={this.state.questions} currentUser={this.state.currentUser} /> )} />
           <Route path='/signup' render={ () => ( <SignUp
             isSignedIn={!!this.state.currentUser.id}
             updateCurrentUser={this.updateCurrentUser.bind(this)} /> )} />
           <Route path='/login' component={LogIn} />
-          <Route path='/user/:userId' render={({ match }) => (<UserProfile match={match} currentUserId={this.state.currentUser.id}/>)} />
+          <Route path='/user/:userId' render={({ match }) => {
+            console.log(' changing! ');
+            return (<UserProfile match={match} currentUserId={this.state.currentUser.id}/>)}} />
         </div>
       </Router>
     );

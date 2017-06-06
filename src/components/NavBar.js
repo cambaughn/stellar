@@ -10,7 +10,7 @@ import colors from '../util/colors.js';
 
 
 
-const NavBar = ({ isSignedIn, updateCurrentUser }) => {
+const NavBar = ({ isSignedIn, updateCurrentUser, currentUser }) => {
 
   const renderLinks = () => {
     if (!isSignedIn) {
@@ -28,6 +28,10 @@ const NavBar = ({ isSignedIn, updateCurrentUser }) => {
     } else {
       return (
         <div style={styles.navLinks}>
+          <Link to={`/user/${currentUser.id}`} style={styles.link}>
+            <p>Profile</p>
+          </Link>
+
           <div style={styles.link} onClick={() => { updateCurrentUser({}) }}>
             <p>Log Out</p>
           </div>
