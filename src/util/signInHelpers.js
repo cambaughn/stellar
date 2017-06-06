@@ -27,8 +27,28 @@ signInHelpers.signUp = (user, callback) => {
     })
 }
 
-signInHelpers.logIn = () => {
+signInHelpers.logIn = (user, callback) => {
 
+    let headers = new Headers({
+        'Content-Type': 'application/json',
+    });
+
+    let init = { method: 'POST',
+                  mode: 'cors',
+                  headers: headers,
+                  body: JSON.stringify(user)
+                };
+
+    fetch(`${baseUrl}/login`, init)
+      .then(user => {
+        return user.json();
+      })
+      .then(user => {
+        callback(user);
+      })
+      .catch(error => {
+        console.log(`ERROR => ${error}`);
+      })
 }
 
 

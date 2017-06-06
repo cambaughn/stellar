@@ -24,7 +24,7 @@ class App extends Component {
     this.state = {
       users: [],
       questions: [],
-      currentUser: { id: 3 },
+      currentUser: { },
     }
   }
 

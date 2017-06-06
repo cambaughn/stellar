@@ -77,14 +77,14 @@ app.post('/questions/new', (request, response) => {
 
 // LOGIN & SIGNUP routes
 app.post('/login', (request, response) => {
-  let { name, email, password } = request.body;
+  let { email, password } = request.body;
 
   models.User.findOne({ where: { email: email } })
     .then(user => {
       bcrypt.compare(password, user.password, function(error, result) {
         if (result) { // Passwords match
           response.statusCode = 200;
-          response.send(user);
+          response.send({ name: user.name, bio: user.bio, id: user.id });
         } else { // Passwords do not match
           console.log(error)
           response.statusCode = 404;
