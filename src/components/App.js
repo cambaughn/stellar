@@ -24,8 +24,10 @@ class App extends Component {
     this.state = {
       users: [],
       questions: [],
-      currentUser: { },
+      currentUser: { name: 'Luke Skywalker', email: 'luke@gmail.com', bio: 'I am a Jedi, like my father before me', id: 1 },
     }
+
+    this.updateCurrentUser = this.updateCurrentUser.bind(this);
   }
 
   componentDidMount() {
@@ -51,15 +53,17 @@ class App extends Component {
       <Router>
         <div>
           <NavBar isSignedIn={!!this.state.currentUser.id}
-            updateCurrentUser={this.updateCurrentUser.bind(this)}
+            updateCurrentUser={this.updateCurrentUser}
             currentUser={this.state.currentUser} />
 
           <Route exact path='/' render={() => (
             <Main users={this.state.users} questions={this.state.questions} currentUser={this.state.currentUser} /> )} />
           <Route path='/signup' render={ () => ( <SignUp
             isSignedIn={!!this.state.currentUser.id}
-            updateCurrentUser={this.updateCurrentUser.bind(this)} /> )} />
-          <Route path='/login' component={LogIn} />
+            updateCurrentUser={this.updateCurrentUser} /> )} />
+          <Route path='/login' render={ () => ( <LogIn
+            isSignedIn={!!this.state.currentUser.id}
+            updateCurrentUser={this.updateCurrentUser} /> )} />
           <Route path='/user/:userId' render={({ match }) => {
             console.log(' changing! ');
             return (<UserProfile match={match} currentUserId={this.state.currentUser.id}/>)}} />

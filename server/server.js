@@ -84,7 +84,7 @@ app.post('/login', (request, response) => {
       bcrypt.compare(password, user.password, function(error, result) {
         if (result) { // Passwords match
           response.statusCode = 200;
-          response.send({ name: user.name, bio: user.bio, id: user.id });
+          response.send({ name: user.name, bio: user.bio, email: user.email, id: user.id });
         } else { // Passwords do not match
           console.log(error)
           response.statusCode = 404;
@@ -113,7 +113,7 @@ app.post('/signup', (request, response) => {
       models.User.findOrCreate({ where: { email: email }, defaults: { name: name, password: hash}})
         .spread((user, created) => {
           response.statusCode = 201;
-          response.send({ id: user.id, name: user.name, email: user.email });
+          response.send({ id: user.id, name: user.name, email: user.email, id: user.id });
         })
         .catch(error => {
           console.error(error);
