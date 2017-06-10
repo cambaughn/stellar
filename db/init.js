@@ -72,6 +72,14 @@ const Answer = sequelize.define('answer', {
 
 Answer.belongsTo(Question);
 
+
+const Like = sequelize.define('like', {
+});
+
+Like.belongsTo(User, { as: 'user'});
+Like.belongsTo(Answer, { as: 'answer'});
+Like.belongsTo(Question, { as: 'question'});
+
 // ============================ Setup + Test ============================
 
 // force: true will drop the table if it already exists
