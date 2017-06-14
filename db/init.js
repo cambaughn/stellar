@@ -96,7 +96,13 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   // password: ihatesand
 
   Question.create({
-    text: 'Hey, what\'s your favorite color?',
+    text: 'Use the force, Luke.',
+    askerId: 2,
+    answererId: 1
+  })
+
+  Question.create({
+    text: 'I have a bad feeling about this',
     askerId: 2,
     answererId: 1
   })
