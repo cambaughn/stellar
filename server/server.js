@@ -52,7 +52,7 @@ app.get('/questions/:userId', (request, response) => {
   console.log(request.params.userId)
   models.Question.findAll({
     where: { answererId: request.params.userId},
-    include: [ { model: models.User, as: 'asker'} ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'} ],
     attributes: ['text', 'id']
   })
     .then(questions => {
@@ -122,6 +122,30 @@ app.post('/signup', (request, response) => {
         })
     }
   });
+})
+
+
+
+
+// FOLLOWER routes
+app.post('/followers/new', (request, response) => {
+  let { followerId, followingId } = request.body;
+
+  if (followerId && followingId) {
+    models.Follower.findOrCreate({
+      where: { followerId, followingId },
+      attributes: ['followerId', 'followingId']
+    })
+      .spread((follow, created) => {
+        response.send(follow);
+      })
+      .catch(error => {
+        response.send(error);
+      })
+  } else {
+    response.send('Error! Missing fields.')
+  }
+
 })
 
 

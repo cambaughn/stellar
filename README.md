@@ -1,4 +1,4 @@
-# Stellar
+# stellar
 
 ## Getting Started
 
