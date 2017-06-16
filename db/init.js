@@ -47,6 +47,8 @@ const User = sequelize.define('user', {
   }
 });
 
+// User.hasMany(User, {as: 'Followers'})
+
 const Follower = sequelize.define('follower', {
 });
 

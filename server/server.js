@@ -27,7 +27,10 @@ app.get('/users', function (request, response) {
 
 app.get('/user/:userId', (request, response) => {
   // Return the specific user
-  models.User.findOne({ where: { id: request.params.userId }, attributes: ['name', 'email', 'bio', 'id']})
+  models.User.findOne({
+    where: { id: request.params.userId },
+    attributes: ['name', 'email', 'bio', 'id']
+  })
     .then(user => {
       response.send(user);
     })
@@ -145,7 +148,23 @@ app.post('/followers/new', (request, response) => {
   } else {
     response.send('Error! Missing fields.')
   }
+})
 
+
+app.post('/followers/is_following', (request, response) => {
+  let { followerId, followingId } = request.body;
+
+  console.log('FINDING FOLLOW => ', request.body)
+
+  models.Follower.findOne({
+    where: { followerId, followingId }
+  })
+    .then(follow => {
+      response.send(!!follow);
+    })
+    .catch(error => {
+      response.send(error);
+    })
 })
 
 
