@@ -56,7 +56,8 @@ app.get('/questions/:userId', (request, response) => {
   models.Question.findAll({
     where: { answererId: request.params.userId},
     include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'} ],
-    attributes: ['text', 'id']
+    attributes: ['text', 'id'],
+    order: [['updatedAt', 'DESC']]
   })
     .then(questions => {
       response.send(questions);
