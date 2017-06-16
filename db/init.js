@@ -104,9 +104,21 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   })
 
   Question.create({
-    text: 'I have a bad feeling about this',
-    askerId: 2,
+    text: 'No, I am your father.',
+    askerId: 3,
     answererId: 1
+  })
+
+  Question.create({
+    text: 'I have a bad feeling about this.',
+    askerId: 2,
+    answererId: 3
+  })
+
+  Question.create({
+    text: 'Obi-Wan, may the force be with you.',
+    askerId: 3,
+    answererId: 2
   })
 });
 
