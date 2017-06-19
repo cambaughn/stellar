@@ -55,7 +55,9 @@ class App extends Component {
         <div>
           <NavBar isSignedIn={!!this.store.getState().currentUser.id}
             updateCurrentUser={this.updateCurrentUser}
-            currentUser={this.store.getState().currentUser} />
+            currentUser={this.store.getState().currentUser}
+            store={this.store}
+          />
 
           <Route exact path='/' render={() => (
             <Main users={this.store.getState().users} questions={this.store.getState().questions} currentUser={this.store.getState().currentUser} /> )} />

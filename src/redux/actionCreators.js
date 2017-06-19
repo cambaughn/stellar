@@ -1,4 +1,10 @@
-import { UPDATE_USER, SET_QUESTIONS, SET_USERS } from './actionTypes';
+import {
+  UPDATE_USER,
+  SET_QUESTIONS,
+  SET_USERS,
+  UPDATE_FOCUSED_USER,
+  SET_FOCUSED_USER_QUESTIONS,
+} from './actionTypes';
 
 function setUsers(users) {
   return {
@@ -21,4 +27,11 @@ function updateCurrentUser(user) {
   }
 }
 
-export { setUsers, setQuestions, updateCurrentUser };
+function updateFocusedUser(user) {
+  return {
+    type: UPDATE_FOCUSED_USER,
+    user
+  }
+}
+
+export { setUsers, setQuestions, updateCurrentUser, updateFocusedUser };
