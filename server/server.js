@@ -79,6 +79,26 @@ app.post('/questions/new', (request, response) => {
 
 })
 
+
+// ANSWER routes
+
+app.post('/answers/new', (request, response) => {
+
+  console.log('-----------INCOMING VIDEO => ', request.body)
+  response.send(request.body)
+  // let { text, askerId, answererId } = request.body;
+  //
+  // if (text && askerId && answererId) {
+  //   models.Question.findOrCreate({ where: {text, askerId, answererId}})
+  //     .spread((question, created) => {
+  //       response.send(question);
+  //     })
+  // } else {
+  //   response.send('Error! Missing fields. Please try again.')
+  // }
+
+})
+
 // LOGIN & SIGNUP routes
 app.post('/login', (request, response) => {
   let { email, password } = request.body;
