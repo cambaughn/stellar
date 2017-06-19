@@ -14,4 +14,11 @@ function setQuestions(questions) {
   }
 }
 
-export { setUsers, setQuestions };
+function updateCurrentUser(user) {
+  return {
+    type: UPDATE_USER,
+    user
+  }
+}
+
+export { setUsers, setQuestions, updateCurrentUser };

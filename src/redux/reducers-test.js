@@ -1,4 +1,4 @@
-import expect, { createSpy, spyOn, isSpy } from 'expect';
+import expect from 'expect';
 let deepfreeze = require('deepfreeze');
 
 import { currentUser, questions, users, focusedUser, focusedUserQuestions } from './reducers';

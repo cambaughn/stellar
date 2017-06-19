@@ -15,6 +15,9 @@ import UserProfile from './UserProfile';
 import getUsers from '../util/getUsers';
 import getQuestions from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
+import { setUsers, setQuestions, updateCurrentUser } from '../redux/actionCreators';
+
+// { name: 'Luke Skywalker', email: 'luke@gmail.com', bio: 'I am a Jedi, like my father before me', id: 1 }
 
 class App extends Component {
 
@@ -22,11 +25,9 @@ class App extends Component {
     super(props);
 
     this.state = {
-      users: [],
-      questions: [],
-      currentUser: { name: 'Luke Skywalker', email: 'luke@gmail.com', bio: 'I am a Jedi, like my father before me', id: 1 },
-    }
 
+    }
+    this.store = this.props.store;
     this.updateCurrentUser = this.updateCurrentUser.bind(this);
   }
 
@@ -36,37 +37,36 @@ class App extends Component {
 
   getUsersAndQuestions() {
     getUsers.all(users => {
-      this.setState({ users });
+      this.store.dispatch(setUsers(users));
     })
 
     getQuestions.all(questions => {
-      this.setState({ questions });
+      this.store.dispatch(setQuestions(questions));
     })
   }
 
   updateCurrentUser(user) {
-    this.setState({ currentUser: user });
+    this.store.dispatch(updateCurrentUser(user));
   }
 
   render() {
     return (
       <Router>
         <div>
-          <NavBar isSignedIn={!!this.state.currentUser.id}
+          <NavBar isSignedIn={!!this.store.getState().currentUser.id}
             updateCurrentUser={this.updateCurrentUser}
-            currentUser={this.state.currentUser} />
+            currentUser={this.store.getState().currentUser} />
 
           <Route exact path='/' render={() => (
-            <Main users={this.state.users} questions={this.state.questions} currentUser={this.state.currentUser} /> )} />
+            <Main users={this.store.getState().users} questions={this.store.getState().questions} currentUser={this.store.getState().currentUser} /> )} />
           <Route path='/signup' render={ () => ( <SignUp
-            isSignedIn={!!this.state.currentUser.id}
+            isSignedIn={!!this.store.getState().currentUser.id}
             updateCurrentUser={this.updateCurrentUser} /> )} />
           <Route path='/login' render={ () => ( <LogIn
-            isSignedIn={!!this.state.currentUser.id}
+            isSignedIn={!!this.store.getState().currentUser.id}
             updateCurrentUser={this.updateCurrentUser} /> )} />
           <Route path='/user/:userId' render={({ match }) => {
-            console.log(' changing! ');
-            return (<UserProfile match={match} currentUserId={this.state.currentUser.id}/>)}} />
+            return (<UserProfile match={match} currentUserId={this.store.getState().currentUser.id} />)}} />
         </div>
       </Router>
     );
