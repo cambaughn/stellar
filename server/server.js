@@ -7,7 +7,7 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 
 const models = require('../db/init.js');
-
+let sess;
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(cookieParser()); // for parsing cookies
@@ -23,12 +23,13 @@ app.use(function(req, res, next) {
 // SESSION
 app.use(session({
   secret: 'keyboard cat',
-  cookie: { maxAge: 60 * 60 * 1000 }
+  cookie: { maxAge: 60 * 60 * 1000 },
 }))
 
 // USER routes
 app.get('/users', function (request, response) {
-  console.log('SESSION on all users route =====> ', request.session);
+  sess = sess || request.session;
+  console.log('SESSION on all users route =====> ', sess);
   models.User.findAll({ attributes: ['name', 'email', 'id']}).then(users => {
     response.send(users);
   })
@@ -116,7 +117,7 @@ app.post('/login', (request, response) => {
     .then(user => {
       bcrypt.compare(password, user.password, function(error, result) {
         if (result) { // Passwords match
-          let sess = request.session;
+          sess = request.session;
           sess.user = user.name;
           sess.userId = user.id;
           console.log('SESSION on login =====> ', sess);
