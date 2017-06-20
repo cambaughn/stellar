@@ -11,7 +11,7 @@ import colors from '../util/colors.js';
 import { updateCurrentUser } from '../redux/actionCreators';
 
 
-const NavBar = ({ isSignedIn, updateCurrentUser, currentUser, store }) => {
+const NavBar = ({ isSignedIn, updateCurrentUser, currentUser }) => {
 
   const renderLinks = () => {
     if (!isSignedIn) {

@@ -1,33 +1,18 @@
+/*eslint no-use-before-define: "off"*/
+/*eslint no-unused-vars: "off"*/
+/*eslint-env es6*/
 
-const baseUrl = 'http://localhost:1337';
+import { get } from './getPostMethods';
 
 const getUsers = {};
 
-getUsers.all = (callback) => {
-  fetch(`${baseUrl}/users`)
-    .then(users => {
-      return users.json();
-    })
-    .then(users => {
-      callback(users);
-    })
-    .catch(error => {
-      console.log(`ERROR => ${error}`);
-    })
+function getAllUsers(callback) {
+  get('/users', callback);
 }
 
-getUsers.findUser = (userId, callback) => {
-  fetch(`${baseUrl}/user/${userId}`)
-    .then(user => {
-      return user.json();
-    })
-    .then(user => {
-      callback(user);
-    })
-    .catch(error => {
-      console.log(`ERROR => ${error}`);
-    })
+function getUserById(userId, callback) {
+  get(`/user/${userId}`, callback);
 }
 
 
-export default getUsers;
+export { getAllUsers, getUserById };

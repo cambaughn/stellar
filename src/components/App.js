@@ -1,6 +1,7 @@
 /*eslint no-use-before-define: "off"*/
 /*eslint no-unused-vars: "off"*/
 /*eslint-env es6*/
+
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
@@ -10,10 +11,11 @@ import SignUp from './SignUp';
 import LogIn from './LogIn';
 import Main from './Main';
 import UserProfile from './UserProfile';
+import UserProfileContainer from './UserProfileContainer';
 
 // Utility functions & styles
-import getUsers from '../util/getUsers';
-import getQuestions from '../util/getQuestions';
+import { getAllUsers } from '../util/getUsers';
+import { getAllQuestions } from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
 import { setUsers, setQuestions, updateCurrentUser } from '../redux/actionCreators';
 
@@ -36,11 +38,11 @@ class App extends Component {
   }
 
   getUsersAndQuestions() {
-    getUsers.all(users => {
+    getAllUsers(users => {
       this.store.dispatch(setUsers(users));
     })
 
-    getQuestions.all(questions => {
+    getAllQuestions(questions => {
       this.store.dispatch(setQuestions(questions));
     })
   }
@@ -56,37 +58,29 @@ class App extends Component {
           <NavBar isSignedIn={!!this.store.getState().currentUser.id}
             updateCurrentUser={this.updateCurrentUser}
             currentUser={this.store.getState().currentUser}
-            store={this.store}
           />
 
-          <Route exact path='/' render={() => (
-            <Main users={this.store.getState().users} questions={this.store.getState().questions} currentUser={this.store.getState().currentUser} /> )} />
-          <Route path='/signup' render={ () => ( <SignUp
-            isSignedIn={!!this.store.getState().currentUser.id}
-            updateCurrentUser={this.updateCurrentUser} /> )} />
-          <Route path='/login' render={ () => ( <LogIn
-            isSignedIn={!!this.store.getState().currentUser.id}
-            updateCurrentUser={this.updateCurrentUser} /> )} />
-          <Route path='/user/:userId' render={({ match }) => {
-            return (<UserProfile match={match} currentUserId={this.store.getState().currentUser.id} />)}} />
+          <Switch>
+            <Route exact path='/' render={() => (
+              <Main users={this.store.getState().users} questions={this.store.getState().questions} currentUser={this.store.getState().currentUser} /> )} />
+
+            <Route path='/signup' render={ () => ( <SignUp
+              isSignedIn={!!this.store.getState().currentUser.id}
+              updateCurrentUser={this.updateCurrentUser} /> )} />
+
+            <Route path='/login' render={ () => ( <LogIn
+              isSignedIn={!!this.store.getState().currentUser.id}
+              updateCurrentUser={this.updateCurrentUser} /> )} />
+
+            <Route path='/user/:userId' render={({ match }) => (
+              <UserProfileContainer match={match} store={this.store} />
+            )} />
+          </Switch>
         </div>
       </Router>
     );
   }
 }
 
-
-
-
-const styles = {
-  column: {
-    marginLeft: 50,
-    marginRight: 50,
-  },
-  asking: {
-    fontSize: '80%',
-    color: 'grey'
-  }
-}
 
 export default App;

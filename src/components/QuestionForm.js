@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import stylePresets from '../util/stylePresets';
-import postQuestion from '../util/postQuestion';
+import { postQuestion } from '../util/postQuestion';
 
 
 class QuestionForm extends Component {
@@ -25,7 +25,7 @@ class QuestionForm extends Component {
       answererId: this.props.answererId
     }
     e.preventDefault();
-    postQuestion.new(question, this.questionSubmitted.bind(this));
+    postQuestion(question, this.questionSubmitted.bind(this));
   }
 
   questionSubmitted() {

@@ -3,8 +3,7 @@
 /*eslint-env es6*/
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'react-router-native';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 
 const Example = () => {
