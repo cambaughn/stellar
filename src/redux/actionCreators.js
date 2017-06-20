@@ -38,4 +38,11 @@ function updateFocusedUser(user) {
   }
 }
 
-export { setUsers, setQuestions, updateCurrentUser, updateFocusedUser };
+function setFocusedUserQuestions(questions) {
+  return {
+    type: SET_FOCUSED_USER_QUESTIONS,
+    questions
+  }
+}
+
+export { setUsers, setQuestions, updateCurrentUser, updateFocusedUser, setFocusedUserQuestions };
