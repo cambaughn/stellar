@@ -14,8 +14,10 @@ class QuestionForm extends Component {
 
     this.state = {
       text: '',
-      answerer: null,
     }
+
+    this.submitQuestion = this.submitQuestion.bind(this)
+    this.handleQuestionSubmitted = this.handleQuestionSubmitted.bind(this)
   }
 
   submitQuestion(e) {
@@ -25,18 +27,18 @@ class QuestionForm extends Component {
       answererId: this.props.answererId
     }
     e.preventDefault();
-    postQuestion(question, this.questionSubmitted.bind(this));
+    postQuestion(question, this.handleQuestionSubmitted);
   }
 
-  questionSubmitted() {
+  handleQuestionSubmitted() {
     this.setState({ text: '' });
-    this.props.findQuestions();
+    this.props.findQuestions(this.props.answererId);
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.submitQuestion.bind(this)}>
+        <form onSubmit={this.submitQuestion}>
           <input type='text' value={this.state.text}
             style={{...stylePresets.textInput, ...styles.questionInput}}
             onChange={e => { this.setState({ text: e.target.value })}}></input>

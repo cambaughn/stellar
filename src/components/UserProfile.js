@@ -10,7 +10,7 @@ import getUsers from '../util/getUsers';
 import getQuestions from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
 
-const UserProfile = ({ user, questions, currentUser }) => {
+const UserProfile = ({ user, questions, currentUser, getData }) => {
   return (
     <div style={styles.container}>
       <div style={styles.column}>
@@ -18,8 +18,11 @@ const UserProfile = ({ user, questions, currentUser }) => {
         <div style={styles.topInfo}>
           <h2>{user.name}</h2>
           <p>{user.bio}</p>
-          <QuestionForm findQuestions={console.log}
-            askerId={currentUser.id} answererId={ user.id } />
+          <QuestionForm
+            findQuestions={getData}
+            askerId={currentUser.id}
+            answererId={user.id}
+          />
         </div>
 
         <div>

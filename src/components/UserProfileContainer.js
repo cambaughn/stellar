@@ -22,7 +22,7 @@ class UserProfileContainer extends Component {
 
     // this.handleFollow = this.handleFollow.bind(this);
     // this.checkFollowing = this.checkFollowing.bind(this);
-    // this.getData = this.getData.bind(this);
+    this.getData = this.getData.bind(this);
     this.store = this.props.store;
   }
 
@@ -56,6 +56,7 @@ class UserProfileContainer extends Component {
       <UserProfile user={this.store.getState().focusedUser}
         questions={this.store.getState().focusedUserQuestions}
         currentUser={this.store.getState().currentUser}
+        getData={this.getData}
       />
     )
   }
