@@ -21,11 +21,14 @@ app.use(function(req, res, next) {
 
 
 // SESSION
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { maxAge: 60 * 60 * 1000 }
+}))
 
 // USER routes
 app.get('/users', function (request, response) {
-  console.log('SESSION =====> ', request.session);
+  console.log('SESSION on all users route =====> ', request.session);
   models.User.findAll({ attributes: ['name', 'email', 'id']}).then(users => {
     response.send(users);
   })
@@ -113,7 +116,10 @@ app.post('/login', (request, response) => {
     .then(user => {
       bcrypt.compare(password, user.password, function(error, result) {
         if (result) { // Passwords match
-          console.log('SESSION =====> ', request.session);
+          let sess = request.session;
+          sess.user = user.name;
+          sess.userId = user.id;
+          console.log('SESSION on login =====> ', sess);
           response.statusCode = 200;
           response.send({ name: user.name, bio: user.bio, email: user.email, id: user.id });
         } else { // Passwords do not match
