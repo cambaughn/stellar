@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 
 const models = require('../db/init.js');
 
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(cookieParser()); // for parsing cookies
 

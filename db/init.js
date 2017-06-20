@@ -1,10 +1,12 @@
+// This line requires the .env to be able to access the variables there
+require('dotenv').config();
 
 // This code will drop the existing db and create a new one - use with caution
 
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('stellar_test', 'root', '', {
-  host: 'localhost',
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
   dialect: 'mysql',
 
   pool: {
@@ -13,6 +15,9 @@ const sequelize = new Sequelize('stellar_test', 'root', '', {
     idle: 10000
   },
 });
+
+
+console.log('logging env variable! => ', process.env.DB_HOST)
 
 
 sequelize
