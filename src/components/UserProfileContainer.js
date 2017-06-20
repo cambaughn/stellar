@@ -14,9 +14,9 @@ class UserProfileContainer extends Component {
       following: false,
     }
 
-    this.handleFollow = this.handleFollow.bind(this);
-    this.checkFollowing = this.checkFollowing.bind(this);
-    this.getData = this.getData.bind(this);
+    // this.handleFollow = this.handleFollow.bind(this);
+    // this.checkFollowing = this.checkFollowing.bind(this);
+    // this.getData = this.getData.bind(this);
     this.store = this.props.store;
   }
 
@@ -33,11 +33,11 @@ class UserProfileContainer extends Component {
   //   isFollowing(followerId, followingId, following => this.setState({ following }));
   // }
 
-  // getData(userId) {
-  //   getUserById(userId, user => this.store.dispatch({ type: UPDATE_FOCUSED_USER, user }) );
-  //   getQuestionsByUserId(userId, questions => this.store.dispatch({ type: SET_FOCUSED_USER_QUESTIONS, questions }));
-  //   this.checkFollowing(this.store.getState().currentUser.id, userId);
-  // }
+  getData(userId) {
+    getUserById(userId, user => this.store.dispatch({ type: UPDATE_FOCUSED_USER, user }) );
+    getQuestionsByUserId(userId, questions => this.store.dispatch({ type: SET_FOCUSED_USER_QUESTIONS, questions }));
+    // this.checkFollowing(this.store.getState().currentUser.id, userId);
+  }
 
   render() {
 
@@ -49,7 +49,7 @@ class UserProfileContainer extends Component {
     return (
       <UserProfile user={this.store.getState().focusedUser}
         questions={this.store.getState().focusedUserQuestions}
-        currentUser={this.store.getState.currentUser}
+        currentUser={this.store.getState().currentUser}
       />
     )
   }
