@@ -19,7 +19,6 @@ import { getAllQuestions } from '../util/getQuestions';
 import stylePresets from '../util/stylePresets';
 import { setUsers, setQuestions, updateCurrentUser } from '../redux/actionCreators';
 
-// { name: 'Luke Skywalker', email: 'luke@gmail.com', bio: 'I am a Jedi, like my father before me', id: 1 }
 
 class App extends Component {
 
