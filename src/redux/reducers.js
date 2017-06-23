@@ -1,7 +1,7 @@
 
 import { combineReducers } from 'redux';
 
-function currentUser(state = {}, action) {
+function currentUser(state = { id: 2 }, action) {
   switch (action.type) {
     case 'UPDATE_USER':
       return action.user;

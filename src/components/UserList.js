@@ -9,7 +9,6 @@ import colors from '../util/colors';
 
 const UserList = ({ users }) => {
 
-  let { users } = state;
   return (
     <div style={styles.column}>
       <h2>Users</h2>

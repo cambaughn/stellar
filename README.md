@@ -10,6 +10,10 @@
 
 `nodemon server/server.js` to start express server on port 1337
 
+`redis-server`
+
+`redis-cli` to monitor and check ( KEYS * to check keys, GET key to see that entry)
+
 ## Notes
 
 * Use Deepfreeze to protect against mutability in tests

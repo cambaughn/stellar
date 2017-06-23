@@ -1,16 +1,19 @@
 
 const express = require('express');
-const app = express();
+let redis = require("redis");
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
+let RedisStore = require('connect-redis')(session);
+const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+let client  = redis.createClient();
+const app = express();
 
 const models = require('../db/init.js');
 let sess;
 
 app.use(bodyParser.json()); // for parsing application/json
-app.use(cookieParser()); // for parsing cookies
+
 
 // CORS
 app.use(function(req, res, next) {
@@ -21,10 +24,15 @@ app.use(function(req, res, next) {
 
 
 // SESSION
+app.use(cookieParser()); // for parsing cookies
 app.use(session({
   secret: 'keyboard cat',
+  store: new RedisStore({ host: 'localhost', port: 6379, client: client}),
   cookie: { maxAge: 60 * 60 * 1000 },
+  resave: false, // don't save session if unmodified
+  // saveUninitialized: false, // don't create session until something stored
 }))
+
 
 // USER routes
 app.get('/users', function (request, response) {
