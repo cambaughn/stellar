@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import stylePresets from '../util/stylePresets';
-import signInHelpers from '../util/signInHelpers';
+import { login } from '../util/signInHelpers';
 
 
 class LogIn extends Component {
@@ -26,7 +26,7 @@ class LogIn extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    signInHelpers.logIn({ email: this.state.email, password: this.state.password }, this.handleLoggedIn.bind(this));
+    login({ email: this.state.email, password: this.state.password }, this.handleLoggedIn.bind(this));
   }
 
   handleLoggedIn(user) {

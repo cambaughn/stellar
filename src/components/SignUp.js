@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import stylePresets from '../util/stylePresets';
-import signInHelpers from '../util/signInHelpers';
+import { signup } from '../util/signInHelpers';
 
 
 class SignUp extends Component {
@@ -25,7 +25,7 @@ class SignUp extends Component {
     event.preventDefault();
     event.stopPropagation();
     if (this.state.name && this.state.email && this.state.password) {
-      signInHelpers.signUp(this.state, this.handleLoggedIn.bind(this));
+      signup(this.state, this.handleLoggedIn.bind(this));
     }
   }
 

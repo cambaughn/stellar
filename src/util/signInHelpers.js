@@ -1,55 +1,16 @@
+import { post } from './getPostMethods';
 
 const baseUrl = 'http://localhost:1337'
 
-const signInHelpers = {};
 
-signInHelpers.signUp = (user, callback) => {
+const signup = (user, callback) => {
 
-  let headers = new Headers({
-      'Content-Type': 'application/json',
-  });
-
-  let init = { method: 'POST',
-                mode: 'cors',
-                headers: headers,
-                body: JSON.stringify(user)
-              };
-
-  fetch(`${baseUrl}/signup`, init)
-    .then(user => {
-      return user.json();
-    })
-    .then(user => {
-      callback(user);
-    })
-    .catch(error => {
-      console.log(`ERROR => ${error}`);
-    })
+  post('/signup', user, callback);
 }
 
-signInHelpers.logIn = (user, callback) => {
-
-    let headers = new Headers({
-        'Content-Type': 'application/json',
-    });
-
-    let init = { method: 'POST',
-                  mode: 'cors',
-                  headers: headers,
-                  body: JSON.stringify(user)
-                };
-
-    fetch(`${baseUrl}/login`, init)
-      .then(user => {
-        return user.json();
-      })
-      .then(user => {
-        callback(user);
-      })
-      .catch(error => {
-        console.log(`ERROR => ${error}`);
-      })
+const login = (user, callback) => {
+  post('/login', user, callback);
 }
 
 
-export default signInHelpers;
+export { signup, login };

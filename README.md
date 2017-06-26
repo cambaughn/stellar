@@ -10,9 +10,9 @@
 
 `nodemon server/server.js` to start express server on port 1337
 
-`redis-server`
+`redis-server` to start the redis server
 
-`redis-cli` to monitor and check ( KEYS * to check keys, GET key to see that entry)
+`redis-cli` to monitor and check values in redis ( `KEYS *` to check keys, `GET key` to see that entry)
 
 ## Notes
 
