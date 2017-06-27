@@ -8,11 +8,19 @@ import { Link } from 'react-router-dom';
 const QuestionList = ({ questions }) => {
   return (
     <div style={styles.column}>
-      <h2>Questions</h2>
       { questions.map(question => {
         return (
           <div key={question.id}>
-            <p style={styles.asking}>{question.asker.name} asks {question.answerer.name}:</p>
+            <p style={styles.asking}>
+              <Link to={`/user/${question.asker.id}`} style={styles.link}>
+                <span>{question.asker.name} </span>
+              </Link>
+              <span>asks </span>
+              <Link to={`/user/${question.answerer.id}`} style={styles.link}>
+                <span>{question.answerer.name} </span>
+              </Link>
+              :
+            </p>
             <p>{question.text}</p>
           </div>
         )
@@ -27,9 +35,15 @@ const styles = {
     marginLeft: 50,
     marginRight: 50,
   },
+
   asking: {
     fontSize: '80%',
-    color: 'grey'
+    color: 'grey',
+  },
+
+  link: {
+    textDecoration: 'none',
+    color: 'grey',
   }
 }
 

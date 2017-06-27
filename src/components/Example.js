@@ -21,7 +21,14 @@ const styles = {
 
 export default Example;
 
-// OR
+// ---------- OR ----------
+
+/*eslint no-use-before-define: "off"*/
+/*eslint no-unused-vars: "off"*/
+/*eslint-env es6*/
+
+import React, { Component } from 'react';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 class Example extends Component {
   constructor(props) {

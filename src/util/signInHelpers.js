@@ -1,8 +1,5 @@
 import { post } from './getPostMethods';
 
-const baseUrl = 'http://localhost:1337'
-
-
 const signup = (user, callback) => {
 
   post('/signup', user, callback);

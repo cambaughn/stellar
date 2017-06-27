@@ -11,7 +11,6 @@ const UserList = ({ users }) => {
 
   return (
     <div style={styles.column}>
-      <h2>Users</h2>
       { users.map(user => {
         return (
           <Link to={`/user/${user.id}`} style={styles.link} key={user.id}>
@@ -35,6 +34,8 @@ const styles = {
   link: {
     textDecoration: 'none',
     color: colors.black,
+    fontSize: 20,
+    marginBottom: 20,
   }
 }
 

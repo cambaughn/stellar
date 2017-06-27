@@ -1,22 +1,20 @@
 /*eslint no-use-before-define: "off"*/
 /*eslint no-unused-vars: "off"*/
 /*eslint-env es6*/
+
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 
-import QuestionList from './QuestionList';
-import stylePresets from '../util/stylePresets';
+import UserList from './UserList';
 
-
-const Main = ({ questions }) => {
-
-
+const Search = ({ users }) => {
   return (
     <div style={styles.container}>
-      <QuestionList questions={questions} />
+      <UserList users={users} />
     </div>
   )
 }
+
 
 const styles = {
   container: {
@@ -29,4 +27,4 @@ const styles = {
   },
 }
 
-export default Main;
+export default Search;

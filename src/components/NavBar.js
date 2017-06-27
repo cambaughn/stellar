@@ -29,9 +29,14 @@ const NavBar = ({ isSignedIn, updateCurrentUser, currentUser }) => {
     } else {
       return (
         <div style={styles.navLinks}>
+          <Link to={`/search`} style={styles.link}>
+            <p>Search</p>
+          </Link>
+          
           <Link to={`/user/${currentUser.id}`} style={styles.link}>
             <p>Profile</p>
           </Link>
+
 
           <div style={styles.link} onClick={() => { updateCurrentUser({}) }}>
             <p>Log Out</p>

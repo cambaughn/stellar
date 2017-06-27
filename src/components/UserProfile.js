@@ -29,7 +29,12 @@ const UserProfile = ({ user, questions, currentUser, getData }) => {
           { questions.map(question => {
             return (
               <div key={question.id}>
-                <p style={styles.asking}>{question.asker.name} asks:</p>
+                <p style={styles.asking}>
+                  <Link to={`/user/${question.asker.id}`} style={styles.link}>
+                    <span>{question.asker.name} </span>
+                  </Link>
+                  <span>asks: </span>
+                </p>
                 <p>{question.text}</p>
               </div>
             )
@@ -59,6 +64,11 @@ const styles = {
   asking: {
     fontSize: '80%',
     color: 'grey'
+  },
+
+  link: {
+    textDecoration: 'none',
+    color: 'grey',
   }
 }
 

@@ -10,6 +10,7 @@ import NavBar from './NavBar';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
 import Main from './Main';
+import Search from './Search';
 import UserProfile from './UserProfile';
 import UserProfileContainer from './UserProfileContainer';
 
@@ -61,7 +62,10 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' render={() => (
-              <Main users={this.store.getState().users} questions={this.store.getState().questions} currentUser={this.store.getState().currentUser} /> )} />
+              <Main
+                questions={this.store.getState().questions}
+              />
+            )} />
 
             <Route path='/signup' render={ () => ( <SignUp
               isSignedIn={!!this.store.getState().currentUser.id}
@@ -70,6 +74,10 @@ class App extends Component {
             <Route path='/login' render={ () => ( <LogIn
               isSignedIn={!!this.store.getState().currentUser.id}
               updateCurrentUser={this.updateCurrentUser} /> )} />
+
+            <Route path='/search' render={ () => (
+              <Search users={this.store.getState().users}/>
+            )} />
 
             <Route path='/user/:userId' render={({ match }) => (
               <UserProfileContainer match={match} store={this.store} />
