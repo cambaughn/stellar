@@ -7,13 +7,17 @@ let RedisStore = require('connect-redis')(session);
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 let client  = redis.createClient();
+
+let multer  = require('multer');
+let upload = multer({ dest: 'uploads/' });
+
 const app = express();
 
 const models = require('../db/init.js');
 let sess;
 
-app.use(bodyParser.json()); // for parsing application/json
-
+app.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // CORS
 app.use(function(req, res, next) {
@@ -100,10 +104,10 @@ app.post('/questions/new', (request, response) => {
 
 // ANSWER routes
 
-app.post('/answers/new', (request, response) => {
+app.post('/answers/new', upload.single('avatar'), (request, response) => {
 
   console.log('-----------INCOMING VIDEO => ', request.body)
-  response.send(request.body)
+  response.send('GOT VIDEO')
   // let { text, askerId, answererId } = request.body;
   //
   // if (text && askerId && answererId) {
