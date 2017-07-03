@@ -17,7 +17,7 @@ const models = require('../db/init.js');
 let sess;
 
 app.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // CORS
 app.use(function(req, res, next) {
@@ -104,9 +104,11 @@ app.post('/questions/new', (request, response) => {
 
 // ANSWER routes
 
-app.post('/answers/new', upload.single('avatar'), (request, response) => {
+app.post('/answers/new', upload.single('answer'), (request, response) => {
 
-  console.log('-----------INCOMING VIDEO => ', request.body)
+  console.log('-----------INCOMING VIDEO BODY => ', request.body)
+  console.log('-----------INCOMING VIDEO FILE => ', request.file)
+  console.log('GOT VIDEO')
   response.send('GOT VIDEO')
   // let { text, askerId, answererId } = request.body;
   //
