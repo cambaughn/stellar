@@ -9,7 +9,21 @@ const bcrypt = require('bcrypt');
 let client  = redis.createClient();
 
 let multer  = require('multer');
-let upload = multer({ dest: 'uploads/' });
+let storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '../uploads')
+  },
+  filename: function (req, file, cb) {
+    console.log('SETTING FILENAME => ', file.fieldname)
+    cb(null, file.fieldname + '-' + Date.now() + '.txt')
+  }
+})
+let upload = multer({
+  dest: 'uploads/',
+  onFileUploadStart: function() {
+    console.log('starting parsing ---------')
+  }
+}).single('answer')
 
 const app = express();
 
@@ -104,12 +118,22 @@ app.post('/questions/new', (request, response) => {
 
 // ANSWER routes
 
-app.post('/answers/new', upload.single('answer'), (request, response) => {
+app.post('/answers/new', (request, response) => {
 
-  console.log('-----------INCOMING VIDEO BODY => ', request.body)
-  console.log('-----------INCOMING VIDEO FILE => ', request.file)
-  console.log('GOT VIDEO')
-  response.send('GOT VIDEO')
+  upload(request, response, function (err) {
+   if (err) {
+     // An error occurred when uploading
+     console.log('ERROR ============')
+     response.send(err)
+   }
+
+   console.log('-----------INCOMING VIDEO BODY => ', request.body)
+   console.log('-----------INCOMING VIDEO FILE => ', request.file)
+   console.log('GOT VIDEO')
+   response.send('GOT VIDEO')
+   // Everything went fine
+ })
+
   // let { text, askerId, answererId } = request.body;
   //
   // if (text && askerId && answererId) {
