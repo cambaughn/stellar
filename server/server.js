@@ -61,17 +61,25 @@ app.get('/users', function (request, response) {
   })
 })
 
-app.get('/user/:userId', (request, response) => {
+app.post('/user_profile', (request, response) => {
+
+  let { userId, currentUserId } = request.body;
+
   // Return the specific user
   models.User.findOne({
-    where: { id: request.params.userId },
+    where: { id: userId },
     attributes: ['name', 'email', 'bio', 'id']
   })
     .then(user => {
-      response.send(user);
+      if (userId !== currentUserId) {
+        checkFollowing(currentUserId, userId, isFollowing => {
+          let updatedUser = Object.assign({}, user.toJSON(), {following: isFollowing});
+          response.send(updatedUser);
+        })
+      }
     })
     .catch(error => {
-      console.error(error);
+      response.send(error);
     })
 })
 
@@ -229,16 +237,20 @@ app.post('/followers/is_following', (request, response) => {
 
   console.log('FINDING FOLLOW => ', request.body)
 
+  checkFollowing(followerId, followingId, (isFollowing) => response.send(isFollowing))
+})
+
+function checkFollowing(followerId, followingId, callback) {
   models.Follower.findOne({
     where: { followerId, followingId }
   })
     .then(follow => {
-      response.send(!!follow);
+      callback(!!follow);
     })
     .catch(error => {
-      response.send(error);
+      callback(error);
     })
-})
+}
 
 
 app.listen(1337, function () {

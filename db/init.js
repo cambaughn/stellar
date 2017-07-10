@@ -125,6 +125,11 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
     askerId: 3,
     answererId: 2
   })
+
+  Follower.create({
+    followerId: 2,
+    followingId: 1
+  })
 });
 
 

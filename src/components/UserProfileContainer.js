@@ -40,7 +40,7 @@ class UserProfileContainer extends Component {
   // }
 
   getData(userId) {
-    getUserById(userId, user => this.store.dispatch(updateFocusedUser(user)) );
+    getUserById(userId, this.store.getState().currentUser.id, user => this.store.dispatch(updateFocusedUser(user)));
     getQuestionsByUserId(userId, questions => this.store.dispatch(setFocusedUserQuestions(questions)));
     // this.checkFollowing(this.store.getState().currentUser.id, userId);
   }
