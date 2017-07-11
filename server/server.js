@@ -11,18 +11,20 @@ let client  = redis.createClient();
 let multer  = require('multer');
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../uploads')
+    cb(null, '/uploads')
   },
   filename: function (req, file, cb) {
     console.log('SETTING FILENAME => ', file.fieldname)
-    cb(null, file.fieldname + '-' + Date.now() + '.txt')
+    cb(null, file.fieldname + '-' + Date.now() + '.mov')
   }
 })
+
 let upload = multer({
   dest: 'uploads/',
   onFileUploadStart: function() {
     console.log('starting parsing ---------')
-  }
+  },
+  storage: storage
 }).single('answer')
 
 const app = express();
@@ -32,6 +34,7 @@ let sess;
 
 app.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
 // app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 
 // CORS
 app.use(function(req, res, next) {
@@ -76,6 +79,8 @@ app.post('/user_profile', (request, response) => {
           let updatedUser = Object.assign({}, user.toJSON(), {following: isFollowing});
           response.send(updatedUser);
         })
+      } else {
+        response.send(user);
       }
     })
     .catch(error => {
