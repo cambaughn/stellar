@@ -77,7 +77,7 @@ const Answer = sequelize.define('answer', {
   },
 });
 
-Answer.belongsTo(Question);
+Answer.belongsTo(Question, { as: 'question' });
 
 
 const Like = sequelize.define('like', {

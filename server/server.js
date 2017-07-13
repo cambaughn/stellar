@@ -8,27 +8,19 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 let client  = redis.createClient();
 
-// let multer  = require('multer');
-// let storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, '/uploads')
-//   },
-//   filename: function (req, file, cb) {
-//     console.log('SETTING FILENAME => ', file.fieldname)
-//     cb(null, file.fieldname + '-' + Date.now() + '.mov')
-//   }
-// })
-//
-// let upload = multer({
-//   dest: 'uploads/',
-//   onFileUploadStart: function() {
-//     console.log('starting parsing ---------')
-//   },
-//   storage: storage
-// }).single('answer')
 
 var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '.mov')
+  }
+})
+
+var upload = multer({ dest: 'uploads/', storage: storage })
 
 const app = express();
 
@@ -136,30 +128,11 @@ app.post('/questions/new', (request, response) => {
 
 app.post('/answers/new', upload.single('answer'), (request, response) => {
 
- //  upload(request, response, function (error) {
- //   if (error) {
- //     // An error occurred when uploading
- //     console.log('ERROR ============', error)
- //     return response.send(error)
- //   }
- //
    console.log('-----------INCOMING VIDEO BODY => ', request.body)
    console.log('-----------INCOMING VIDEO FILE => ', request.file)
    console.log('GOT VIDEO')
-   response.send('GOT VIDEO')
- //   // Everything went fine
- // })
+   response.send({message: 'GOT VIDEO'})
 
-  // let { text, askerId, answererId } = request.body;
-  //
-  // if (text && askerId && answererId) {
-  //   models.Question.findOrCreate({ where: {text, askerId, answererId}})
-  //     .spread((question, created) => {
-  //       response.send(question);
-  //     })
-  // } else {
-  //   response.send('Error! Missing fields. Please try again.')
-  // }
 
 })
 
