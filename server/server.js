@@ -127,13 +127,15 @@ app.post('/questions/new', (request, response) => {
 // ANSWER routes
 
 app.post('/answers/new', upload.single('answer'), (request, response) => {
-
-   console.log('-----------INCOMING VIDEO BODY => ', request.body)
-   console.log('-----------INCOMING VIDEO FILE => ', request.file)
-   console.log('GOT VIDEO')
-   response.send({message: 'GOT VIDEO'})
-
-
+  
+   models.Answer.create({ path: request.file.path, questionId: request.body.questionId })
+    .then(answer => {
+      response.send({message: 'GOT VIDEO'})
+    })
+    .catch(error => {
+      console.error(error);
+      response.send(error)
+    })
 })
 
 // LOGIN & SIGNUP routes
