@@ -127,6 +127,12 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
     answererId: 2
   })
 
+  Question.create({
+    text: 'Do you know anything about an Obi-Wan Kenobi?',
+    askerId: 1,
+    answererId: 2
+  })
+
   Follower.create({
     followerId: 2,
     followingId: 1
@@ -135,6 +141,10 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   Answer.create({
     path: 'uploads/answer-1500086355570.mov',
     questionId: 1
+  })
+  Answer.create({
+    path: 'uploads/answer-1500086355570.mov',
+    questionId: 5
   })
 
 });

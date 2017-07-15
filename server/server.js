@@ -115,7 +115,7 @@ app.get('/questions/:userId', (request, response) => {
 app.post('/questions/current_user', (request, response) => {
   models.Question.findAll({
     where: { answererId: request.body.userId},
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'} ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers' } ],
     attributes: ['text', 'id'],
     order: [['updatedAt', 'DESC']]
   })
