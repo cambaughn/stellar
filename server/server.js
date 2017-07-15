@@ -85,9 +85,11 @@ app.post('/user_profile', (request, response) => {
 
 
 // QUESTION routes
+
+// This route is now filtering server-side to only return answered questions
 app.get('/questions', function (request, response) {
   models.Question.findAll({
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'} ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } } }],
     attributes: ['text', 'id']
   })
     .then(questions => {
@@ -127,7 +129,7 @@ app.post('/questions/new', (request, response) => {
 // ANSWER routes
 
 app.post('/answers/new', upload.single('answer'), (request, response) => {
-  
+
    models.Answer.create({ path: request.file.path, questionId: request.body.questionId })
     .then(answer => {
       response.send({message: 'GOT VIDEO'})

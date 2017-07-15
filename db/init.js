@@ -72,13 +72,14 @@ Question.belongsTo(User, { as: 'answerer'});
 
 
 const Answer = sequelize.define('answer', {
-  video_path: {
+  path: {
     type: Sequelize.STRING,
   },
 });
 
-Answer.belongsTo(Question, { as: 'question' });
 
+Answer.belongsTo(Question, { as: 'question' });
+Question.hasMany(Answer, {as: 'Answers'})
 
 const Like = sequelize.define('like', {
 });
@@ -130,6 +131,12 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
     followerId: 2,
     followingId: 1
   })
+
+  Answer.create({
+    path: 'uploads/answer-1500086355570.mov',
+    questionId: 1
+  })
+
 });
 
 
