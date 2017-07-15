@@ -89,7 +89,7 @@ app.post('/user_profile', (request, response) => {
 // This route is now filtering server-side to only return answered questions
 app.get('/questions', function (request, response) {
   models.Question.findAll({
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } } }],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } } } ],
     attributes: ['text', 'id']
   })
     .then(questions => {
@@ -97,10 +97,24 @@ app.get('/questions', function (request, response) {
     })
 })
 
+// Get other people's questions - filter on backend to only send questions with answers
 app.get('/questions/:userId', (request, response) => {
   console.log(request.params.userId)
   models.Question.findAll({
     where: { answererId: request.params.userId},
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } } } ],
+    attributes: ['text', 'id'],
+    order: [['updatedAt', 'DESC']]
+  })
+    .then(questions => {
+      response.send(questions);
+    })
+})
+
+// Get the current user's questions - get all questions and filter on front end
+app.post('/questions/current_user', (request, response) => {
+  models.Question.findAll({
+    where: { answererId: request.body.userId},
     include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'} ],
     attributes: ['text', 'id'],
     order: [['updatedAt', 'DESC']]
