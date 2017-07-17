@@ -89,7 +89,7 @@ app.post('/user_profile', (request, response) => {
 // This route is now filtering server-side to only return answered questions
 app.get('/questions', function (request, response) {
   models.Question.findAll({
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } } } ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } }, attributes: ['id'] } ],
     attributes: ['text', 'id']
   })
     .then(questions => {
@@ -102,7 +102,7 @@ app.get('/questions/:userId', (request, response) => {
   console.log(request.params.userId)
   models.Question.findAll({
     where: { answererId: request.params.userId},
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } } } ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } }, attributes: ['id'] } ],
     attributes: ['text', 'id'],
     order: [['updatedAt', 'DESC']]
   })
@@ -111,11 +111,12 @@ app.get('/questions/:userId', (request, response) => {
     })
 })
 
-// Get the current user's questions - get all questions and filter on front end
+  // Get the current user's questions - get all questions and filter on front end
+
 app.post('/questions/current_user', (request, response) => {
   models.Question.findAll({
     where: { answererId: request.body.userId},
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers' } ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', attributes: ['id'] } ],
     attributes: ['text', 'id'],
     order: [['updatedAt', 'DESC']]
   })
@@ -124,6 +125,7 @@ app.post('/questions/current_user', (request, response) => {
     })
 })
 
+  // POST Question
 
 app.post('/questions/new', (request, response) => {
   let { text, askerId, answererId } = request.body;
@@ -154,7 +156,27 @@ app.post('/answers/new', upload.single('answer'), (request, response) => {
     })
 })
 
+app.get('/answer/:answerId', (request, response) => {
+  models.Answer.findOne({ where: { id: request.params.answerId } })
+    .then(answer => {
+      // response.send(answer.path)
+      response.sendFile(path.join(__dirname, answer.path),
+      function (err) {
+        if (err) {
+          console.log('ERROR HERE ---------');
+        } else {
+          console.log('Sent: -------', answer.path);
+        }
+      });
+    })
+    .catch(error => {
+      response.send(error);
+    })
+})
+
+
 // LOGIN & SIGNUP routes
+
 app.post('/login', (request, response) => {
   let { email, password } = request.body;
 
