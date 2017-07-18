@@ -7,7 +7,7 @@ let RedisStore = require('connect-redis')(session);
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 let client  = redis.createClient();
-
+let fs = require('fs');
 
 var multer  = require('multer')
 
@@ -159,15 +159,18 @@ app.post('/answers/new', upload.single('answer'), (request, response) => {
 app.get('/answer/:answerId', (request, response) => {
   models.Answer.findOne({ where: { id: request.params.answerId } })
     .then(answer => {
+      fs.createReadStream(answer.path).pipe(response);
+
       // response.send(answer.path)
-      response.sendFile(path.join(__dirname, answer.path),
-      function (err) {
-        if (err) {
-          console.log('ERROR HERE ---------');
-        } else {
-          console.log('Sent: -------', answer.path);
-        }
-      });
+      // response.sendFile(answer.path,
+      // function (err) {
+      //   if (err) {
+      //     console.log('ERROR HERE ---------');
+      //   } else {
+      //     console.log('Sent: -------', answer.path);
+      //   }
+      // });
+
     })
     .catch(error => {
       response.send(error);
