@@ -159,6 +159,8 @@ app.post('/answers/new', upload.single('answer'), (request, response) => {
 app.get('/answer/:answerId', (request, response) => {
   models.Answer.findOne({ where: { id: request.params.answerId } })
     .then(answer => {
+      // response.set('Content-Type', 'video/mp4');
+      //
       fs.createReadStream(answer.path).pipe(response);
 
       // response.send(answer.path)
