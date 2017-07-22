@@ -3,7 +3,7 @@
 /*eslint-env es6*/
 
 import React, { Component } from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const Example = () => {
@@ -28,7 +28,7 @@ export default Example;
 /*eslint-env es6*/
 
 import React, { Component } from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Example extends Component {
   constructor(props) {
@@ -40,6 +40,12 @@ class Example extends Component {
       <div></div>
     )
   }
+}
+
+const styles = {
+  container: {
+
+  },
 }
 
 export default Example;

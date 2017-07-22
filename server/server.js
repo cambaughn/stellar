@@ -22,6 +22,8 @@ var storage = multer.diskStorage({
 
 var upload = multer({ dest: 'uploads/', storage: storage })
 
+let http = require('http');
+let https = require('https');
 const app = express();
 
 const models = require('../db/init.js');
@@ -89,7 +91,7 @@ app.post('/user_profile', (request, response) => {
 // This route is now filtering server-side to only return answered questions
 app.get('/questions', function (request, response) {
   models.Question.findAll({
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } }, attributes: ['id'] } ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } }, attributes: ['id', 'path'] } ],
     attributes: ['text', 'id']
   })
     .then(questions => {
@@ -102,7 +104,7 @@ app.get('/questions/:userId', (request, response) => {
   console.log(request.params.userId)
   models.Question.findAll({
     where: { answererId: request.params.userId},
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } }, attributes: ['id'] } ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', where: { path: { $ne: null } }, attributes: ['id', 'path'] } ],
     attributes: ['text', 'id'],
     order: [['updatedAt', 'DESC']]
   })
@@ -116,7 +118,7 @@ app.get('/questions/:userId', (request, response) => {
 app.post('/questions/current_user', (request, response) => {
   models.Question.findAll({
     where: { answererId: request.body.userId},
-    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', attributes: ['id'] } ],
+    include: [ { model: models.User, as: 'asker'}, { model: models.User, as: 'answerer'}, { model: models.Answer, as: 'Answers', attributes: ['id', 'path'] } ],
     attributes: ['text', 'id'],
     order: [['updatedAt', 'DESC']]
   })
@@ -156,27 +158,27 @@ app.post('/answers/new', upload.single('answer'), (request, response) => {
     })
 })
 
-app.get('/answer/:answerId', (request, response) => {
-  models.Answer.findOne({ where: { id: request.params.answerId } })
-    .then(answer => {
+app.get('/answer/:answerPath', (request, response) => {
+  // models.Answer.findOne({ where: { id: request.params.answerId } })
+  //   .then(answer => {
       // response.set('Content-Type', 'video/mp4');
-      //
-      fs.createReadStream(answer.path).pipe(response);
+      // fs.createReadStream(`uploads/${request.params.answerPath}`).pipe(response);
 
       // response.send(answer.path)
-      // response.sendFile(answer.path,
-      // function (err) {
-      //   if (err) {
-      //     console.log('ERROR HERE ---------');
-      //   } else {
-      //     console.log('Sent: -------', answer.path);
-      //   }
-      // });
 
-    })
-    .catch(error => {
-      response.send(error);
-    })
+      response.sendFile(`uploads/${request.params.answerPath}`,
+      function (err) {
+        if (err) {
+          console.log('ERROR HERE ---------');
+        } else {
+          console.log('Sent: -------', answer.path);
+        }
+      });
+
+    // })
+    // .catch(error => {
+    //   response.send(error);
+    // })
 })
 
 
@@ -279,6 +281,9 @@ function checkFollowing(followerId, followingId, callback) {
 }
 
 
-app.listen(1337, function () {
-  console.log('Example app listening on port 1337!')
-})
+// app.listen(1337, function () {
+//   console.log('Example app listening on port 1337!')
+// })
+
+http.createServer(app).listen(1337);
+// https.createServer(options, app).listen(1300);
