@@ -5,46 +5,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import NavLink from './NavLink';
 import colors from '../util/colors.js';
-
 
 import { updateCurrentUser } from '../redux/actionCreators';
 
 
 const NavBar = ({ isSignedIn, updateCurrentUser, currentUser }) => {
-
-  const renderLinks = () => {
-    if (!isSignedIn) {
-      return (
-        <div style={styles.navLinks}>
-          <Link to='/signup' style={styles.link}>
-            <p>Sign Up</p>
-          </Link>
-
-          <Link to='/login' style={styles.link}>
-            <p>Log In</p>
-          </Link>
-        </div>
-      )
-    } else {
-      return (
-        <div style={styles.navLinks}>
-          <Link to={`/search`} style={styles.link}>
-            <p>Search</p>
-          </Link>
-          
-          <Link to={`/user/${currentUser.id}`} style={styles.link}>
-            <p>Profile</p>
-          </Link>
-
-
-          <div style={styles.link} onClick={() => { updateCurrentUser({}) }}>
-            <p>Log Out</p>
-          </div>
-        </div>
-      )
-    }
-  }
 
   return (
     <div style={styles.bar}>
@@ -54,7 +21,24 @@ const NavBar = ({ isSignedIn, updateCurrentUser, currentUser }) => {
         </Link>
       </div>
 
-      { renderLinks() }
+      { isSignedIn ? (
+        <div style={styles.navLinks}>
+
+          <NavLink path={'/search'} text={'Search'} />
+          <NavLink path={`/user/${currentUser.id}`} text={'Profile'} />
+
+          <div style={styles.link} onClick={() => { updateCurrentUser({}) }}>
+            <p>Log Out</p>
+          </div>
+        </div>
+
+      ) : (
+
+        <div style={styles.navLinks}>
+          <NavLink path={'/signup'} text={'Sign Up'} />
+          <NavLink path={'/login'} text={'Log In'} />
+        </div>
+      )}
     </div>
   )
 }
@@ -63,7 +47,7 @@ const NavBar = ({ isSignedIn, updateCurrentUser, currentUser }) => {
 const styles = {
   bar: {
     width: 'inherit',
-    height: 80,
+    height: 70,
     backgroundColor: 'white',
 
     paddingLeft: 100,
@@ -90,7 +74,8 @@ const styles = {
     color: colors.black,
     textDecoration: 'none',
     fontSize: '90%',
-    marginLeft: 40,
+    marginLeft: 20,
+    marginRight: 20,
     cursor: 'pointer',
   }
 }
