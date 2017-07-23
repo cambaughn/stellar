@@ -40,4 +40,4 @@ function post(path, body, callback) {
 }
 
 
-export { get, post };
+export { get, post, baseUrl };
