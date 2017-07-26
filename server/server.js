@@ -159,28 +159,22 @@ app.post('/answers/new', upload.single('answer'), (request, response) => {
 })
 
 app.get('/answer/:answerPath', (request, response) => {
-  // models.Answer.findOne({ where: { id: request.params.answerId } })
-  //   .then(answer => {
-      console.log(request.params.answerPath);
+  console.log(request.params.answerPath);
 
-      // response.set('Content-Type', 'video/mp4');
-      // fs.createReadStream(`uploads/${request.params.answerPath}`).pipe(response);
+  // response.set('Content-Type', 'video/mp4');
+  // fs.createReadStream(`uploads/${request.params.answerPath}`).pipe(response);
 
-      // response.send(answer.path)
+  // response.send(answer.path)
 
-      response.sendFile(`/${request.params.answerPath}`, {root: 'uploads'},
-      function (err) {
-        if (err) {
-          console.log('ERROR HERE ---------', err);
-        } else {
-          console.log('Sent: -------', request.params.answerPath);
-        }
-      });
+  response.sendFile(`/${request.params.answerPath}`, {root: 'uploads'},
+  function (error) {
+    if (error) {
+      console.log('ERROR HERE ---------', err);
+    } else {
+      console.log('Sent: -------', request.params.answerPath);
+    }
+  });
 
-    // })
-    // .catch(error => {
-    //   response.send(error);
-    // })
 })
 
 
@@ -281,6 +275,25 @@ function checkFollowing(followerId, followingId, callback) {
       callback(error);
     })
 }
+
+
+// ACTION logging routes
+
+app.post('/actions/new', (request, response) => {
+  let { userId, type } = request.body;
+
+  if (userId && type) {
+    models.Action.create({ userId, type })
+    .then(action => {
+      response.send({ message: `Received action.`, type })
+    })
+    .catch(error => {
+      response.send({ message: 'There was an error', error })
+    })
+  } else {
+    response.send({ message: 'There was an error' })
+  }
+})
 
 
 // app.listen(1337, function () {

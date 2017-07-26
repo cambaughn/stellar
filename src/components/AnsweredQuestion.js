@@ -16,7 +16,7 @@ const AnsweredQuestion = ({ question }) => {
           <span>Your browser does not support the video tag.</span>
         </video>
       </div>
-
+      
       <Link to={`/user/${question.answerer.id}`} style={styles.link}>
         <span style={styles.name}>{question.answerer.name}</span>
       </Link>

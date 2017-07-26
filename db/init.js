@@ -88,6 +88,14 @@ Like.belongsTo(User, { as: 'user'});
 Like.belongsTo(Answer, { as: 'answer'});
 Like.belongsTo(Question, { as: 'question'});
 
+
+const Action = sequelize.define('action', {
+  type: Sequelize.STRING,
+});
+
+Action.belongsTo(User, { as: 'user'});
+User.hasMany(Action, {as: 'actions'});
+
 // ============================ Setup + Test ============================
 
 // force: true will drop the table if it already exists
@@ -142,6 +150,7 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
     path: 'uploads/answer-1500086355570.mp4',
     questionId: 1
   })
+
   Answer.create({
     path: 'uploads/answer-1500086355570.mp4',
     questionId: 5
@@ -156,3 +165,5 @@ module.exports.User = User;
 module.exports.Question = Question;
 module.exports.Answer = Answer;
 module.exports.Follower = Follower;
+module.exports.Like = Like;
+module.exports.Action = Action;
