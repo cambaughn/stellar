@@ -61,6 +61,7 @@ const styles = {
   brand: {
     textDecoration: 'none',
     color: colors.main,
+    fontFamily: 'Roboto',
   },
 
   navLinks: {
