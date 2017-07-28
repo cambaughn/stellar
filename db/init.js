@@ -147,12 +147,12 @@ sequelize.sync({ force: true, match: /_test$/ }).then(() => {
   })
 
   Answer.create({
-    path: 'uploads/answer-1500086355570.mp4',
+    path: 'answer-1500086355570.mp4',
     questionId: 1
   })
 
   Answer.create({
-    path: 'uploads/answer-1500086355570.mp4',
+    path: 'answer-1500086355570.mp4',
     questionId: 5
   })
 

@@ -148,6 +148,8 @@ app.post('/questions/new', (request, response) => {
 
 app.post('/answers/new', upload.single('answer'), (request, response) => {
 
+  console.log(request.body.questionId);
+
    models.Answer.create({ path: request.file.path, questionId: request.body.questionId })
     .then(answer => {
       response.send({message: 'GOT VIDEO'})
@@ -169,7 +171,7 @@ app.get('/answer/:answerPath', (request, response) => {
   response.sendFile(`/${request.params.answerPath}`, {root: 'uploads'},
   function (error) {
     if (error) {
-      console.log('ERROR HERE ---------', err);
+      console.log('ERROR HERE ---------', error);
     } else {
       console.log('Sent: -------', request.params.answerPath);
     }
