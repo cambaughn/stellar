@@ -5,10 +5,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import QuestionForm from './QuestionForm';
+import QuestionList from './QuestionList';
 
 import getUsers from '../util/getUsers';
 import getQuestions from '../util/getQuestions';
-import stylePresets from '../util/stylePresets';
+import stylePresets from '../util/design/stylePresets';
 
 const UserProfile = ({ user, questions, currentUser, getData }) => {
   return (
@@ -26,19 +27,7 @@ const UserProfile = ({ user, questions, currentUser, getData }) => {
         </div>
 
         <div>
-          { questions.map(question => {
-            return (
-              <div key={question.id}>
-                <p style={styles.asking}>
-                  <Link to={`/user/${question.asker.id}`} style={styles.link}>
-                    <span>{question.asker.name} </span>
-                  </Link>
-                  <span>asks: </span>
-                </p>
-                <p>{question.text}</p>
-              </div>
-            )
-          })}
+          <QuestionList questions={questions} />
         </div>
 
       </div>

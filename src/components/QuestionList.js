@@ -8,7 +8,7 @@ import AnsweredQuestion from './AnsweredQuestion';
 
 const QuestionList = ({ questions }) => {
   return (
-    <div style={styles.column}>
+    <div style={styles.container}>
       { questions.map(question => {
         return <AnsweredQuestion question={question} key={question.id}/>
       })}
@@ -18,9 +18,12 @@ const QuestionList = ({ questions }) => {
 
 
 const styles = {
-  column: {
-    marginLeft: 50,
-    marginRight: 50,
+  container: {
+    // display: 'flex',
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // alignItems: 'flex-start',
+    // flexWrap: 'wrap',
   },
 
 

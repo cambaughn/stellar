@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import NavLink from './NavLink';
-import colors from '../util/colors.js';
+import colors from '../util/design/colors.js';
 
 import { updateCurrentUser } from '../redux/actionCreators';
 

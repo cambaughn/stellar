@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import colors from '../util/colors';
+import colors from '../util/design/colors';
 
 
 const UserList = ({ users }) => {

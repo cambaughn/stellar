@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import QuestionList from './QuestionList';
-import stylePresets from '../util/stylePresets';
+import stylePresets from '../util/design/stylePresets';
 
 
 const Main = ({ questions }) => {

@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import colors from '../util/colors.js';
+import colors from '../util/design/colors.js';
 
 class NavLink extends Component {
   constructor(props) {

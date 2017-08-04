@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { baseUrl } from '../util/getPostMethods';
-import colors from '../util/colors';
+import colors from '../util/design/colors';
 
 const AnsweredQuestion = ({ question }) => {
   return (
@@ -36,6 +36,7 @@ const styles = {
     marginBottom: 50,
     paddingBottom: 0,
 
+    backgroundColor: 'white',
     // backgroundColor: '#FAFAFA', // or #F4F4F4
 
     border: `1px solid ${colors.lightGrey}`,

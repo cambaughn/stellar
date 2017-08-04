@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import stylePresets from '../util/stylePresets';
+import stylePresets from '../util/design/stylePresets';
 import { postQuestion } from '../util/postQuestion';
 
 
@@ -37,7 +37,7 @@ class QuestionForm extends Component {
 
   render() {
     return (
-      <div>
+      <div style={styles.container}>
         <form onSubmit={this.submitQuestion}>
           <input type='text' value={this.state.text}
             style={{...stylePresets.textInput, ...styles.questionInput}}
@@ -51,6 +51,11 @@ class QuestionForm extends Component {
 
 
 const styles = {
+  // CONTAINER ---------------------
+  container: {
+    width: 400,
+  },
+
   questionInput: {
     width: '82%',
   }

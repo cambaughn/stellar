@@ -17,7 +17,7 @@ import UserProfileContainer from './UserProfileContainer';
 // Utility functions & styles
 import { getAllUsers } from '../util/getUsers';
 import { getAllQuestions } from '../util/getQuestions';
-import stylePresets from '../util/stylePresets';
+import stylePresets from '../util/design/stylePresets';
 import { setUsers, setQuestions, updateCurrentUser } from '../redux/actionCreators';
 
 
@@ -26,9 +26,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-
-    }
     this.store = this.props.store;
     this.updateCurrentUser = this.updateCurrentUser.bind(this);
   }
