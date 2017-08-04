@@ -5,8 +5,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { baseUrl } from '../util/getPostMethods';
-import colors from '../util/design/colors';
+import { baseUrl } from '../../util/getPostMethods';
+import colors from '../../util/design/colors';
 
 const AnsweredQuestion = ({ question }) => {
   return (

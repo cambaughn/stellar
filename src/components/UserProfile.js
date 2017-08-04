@@ -4,8 +4,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import QuestionForm from './QuestionForm';
-import QuestionList from './QuestionList';
+import QuestionForm from './Question/QuestionForm';
+import QuestionList from './Question/QuestionList';
 
 import getUsers from '../util/getUsers';
 import getQuestions from '../util/getQuestions';

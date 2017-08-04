@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-import QuestionList from './QuestionList';
+import QuestionList from './Question/QuestionList';
 import stylePresets from '../util/design/stylePresets';
 
 

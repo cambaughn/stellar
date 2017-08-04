@@ -4,8 +4,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import stylePresets from '../util/design/stylePresets';
-import { postQuestion } from '../util/postQuestion';
+import stylePresets from '../../util/design/stylePresets';
+import { postQuestion } from '../../util/postQuestion';
 
 
 class QuestionForm extends Component {
