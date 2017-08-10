@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
 
 const Template = () => {
   return (
-    <div></div>
+    <div style={styles.container}>
+
+    </div>
   )
 }
 
@@ -39,7 +41,9 @@ class Template extends Component {
 
   render() {
     return (
-      <div></div>
+      <div style={styles.container}>
+
+      </div>
     )
   }
 }

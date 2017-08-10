@@ -40,5 +40,8 @@
     "rules": {
       "no-use-before-define": 0
     }
-  }
+  },
+  "engines": {
+    "node": "6.6.0"
+  },
 }
